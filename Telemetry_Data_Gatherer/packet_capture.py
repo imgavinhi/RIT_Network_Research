@@ -5,6 +5,7 @@ utilizing tshark to capture packets and then save them as k12 packets for parsin
 import subprocess
 import os
 
+#sudo tcpdump -i eth0 -c 2 -XX -tttt > test.txt (use this instead of tshark, then redo the parser to extract info correctly. Reduces time complexity)
 def capture_packets(interface, filename, packet_count):
    # new_dir = os.path.join('Telemetry_Script_Output', 'Caputres')
     #os.makedirs(new_dir, exist_ok=True)
