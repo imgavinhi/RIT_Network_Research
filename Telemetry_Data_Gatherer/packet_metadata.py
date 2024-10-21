@@ -55,11 +55,11 @@ def metadata_lists(timestamp_list, byte_list):
     # Store values into respective metadata list
     for i, packet in enumerate(byte_list):
         dst_mac = packet[0:11]
-        src_mac = packet[12:23]
-        ether_type = packet[12:14]
-        src_ip = packet[28:35]
+        src_mac = packet[12:24]
+        ether_type = packet[24:27]
+        src_ip = packet[49:56]
         dst_ip = packet[36:43]
-        pid = packet[45:46]
+        pid = packet[45:47]
 
         if pid in ['11', '06']:
             src_port = packet[65:68]
