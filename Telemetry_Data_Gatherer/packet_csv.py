@@ -25,8 +25,8 @@ def write_to_csv(filename, byte_list, timestamp_list, dst_macs, src_macs, ether_
                 'Destination IP': '.'.join(dst_ips[i]),
                 'PID': pids[i],
                 'Source Port': ''.join(src_ports[i]),
-                'Destination Port': ''.join(dst_ports[i])
-#                'Time Delta': time_deltas[i],
-#                'Epoch': epochs[i]
+                'Destination Port': ''.join(dst_ports[i]),
+                'Time Delta': time_deltas[i],
+                'Epoch': epochs[i]
             })
 
