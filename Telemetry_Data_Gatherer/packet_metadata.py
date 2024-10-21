@@ -3,6 +3,9 @@ gathers packet metrics and stores them into lists
 
 each list will be gone through in order to concurrently to match data with its respective packet
 '''
+
+#REFACTOR TO WORK WITH NEW WAY OF GETTING CAPTURE
+
 import time
 
 import time
