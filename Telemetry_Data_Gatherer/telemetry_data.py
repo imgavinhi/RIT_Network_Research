@@ -26,7 +26,7 @@ def main():
         command = input("\nPlease select a choice: ")
         command = command.upper()
         if command == "P":
-            file_location = input("Please specify the capture location: ")
+            file_location = input("Please specify the capture location (txt capture files only): ")
             byte_count = input("Please specify the number of bytes you want from the packet: ")
         
             #have to change this so it is not stored in variables here, instead in a file that you read through to determine values
@@ -42,7 +42,7 @@ def main():
 
         elif command == "C":
             interface = input("Please specify an interface to capture on: ")
-            filename = input("Please specify a pcap filename: ")
+            filename = input("Please specify a capture filename (must be txt file): ")
             packet_count = input("Please specify the amount of packets to capture: ")
             capture_packets(interface, filename, packet_count)
         elif command == "S":
