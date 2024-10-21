@@ -5,16 +5,22 @@ utilizing tshark to capture packets and then save them as k12 packets for parsin
 import subprocess
 import os
 
-#sudo tcpdump -i eth0 -c 2 -XX -tttt > test.txt (use this instead of tshark, then redo the parser to extract info correctly. Reduces time complexity)
 def capture_packets(interface, filename, packet_count):
-   # new_dir = os.path.join('Telemetry_Script_Output', 'Caputres')
-    #os.makedirs(new_dir, exist_ok=True)
-    #capture_path = os.path.join(new_dir, filename)
-    capture_command = ['tshark', '-i', interface, '-w', filename, '-c', packet_count]
+    # Ensure the output directory exists
+    # new_dir = os.path.join('Telemetry_Script_Output', 'Captures')
+    # os.makedirs(new_dir, exist_ok=True)
+    # capture_path = os.path.join(new_dir, filename)
+
+    # Create the tcpdump command
+    capture_command = ['sudo', 'tcpdump', '-i', interface, '-c', str(packet_count), '-XX', '-tttt']
+
+    # Open the output file in write mode
+    with open(filename, 'w') as f:
+        # Run the command and redirect stdout to the file
+        subprocess.run(capture_command, stdout=f)
+
+    # Generate the k12 filename
     file = os.path.splitext(filename)[0]
-    k12_filename = file + ".k12"
-#    k12_path = os.path.join(new_dir, k12_filename)
-    convert_command = ['tshark', '-r', filename, '-F', 'k12text', '-w', k12_filename]
-    subprocess.run(capture_command)
-    subprocess.run(convert_command)
+    new_filename = file + ".txt"
+
 
