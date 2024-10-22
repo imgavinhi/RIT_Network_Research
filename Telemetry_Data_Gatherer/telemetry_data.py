@@ -7,6 +7,7 @@ from packet_parser import packet_parser
 from packet_csv import write_to_csv
 import packet_metadata
 from packet_capture import capture_packets
+from statistics import statistics
 from os import system
 import os
 import subprocess
@@ -46,7 +47,9 @@ def main():
             packet_count = input("Please specify the amount of packets to capture: ")
             capture_packets(interface, filename, packet_count)
         elif command == "S":
-            print("Stats")
+            csv_file = input("Please specify CSV data file: ")
+            statistics(csv_file)
+            time.sleep(5)
         elif command == "Q":
             print("Quitting Telemtry Data Gathering Script...")
             run = False
