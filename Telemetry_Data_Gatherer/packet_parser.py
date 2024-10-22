@@ -57,4 +57,3 @@ def packet_parser(file, byte_count):
 
 # Example usage:
 # packet_parser("your_packet_dump_file.txt", 32)  # Parses the first 32 hex chars
-
