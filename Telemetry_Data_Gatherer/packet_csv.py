@@ -5,11 +5,11 @@ stores packet metadata into a csv file
 import csv
 import os
 
-def write_to_csv(filename, byte_list, timestamp_list, dst_macs, src_macs, ether_types, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs):
+def write_to_csv(filename, byte_list, timestamp_list, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs):
     wo_extension, extension = os.path.splitext(filename)
     new_filename = str(wo_extension) + ".csv"
     with open(new_filename, 'w', newline='') as csvfile:
-        fieldnames = ['Timestamp', 'Destination MAC', 'Source MAC', 'Ether Type', 'Source IP', 'Destination IP', 'PID', 'Source Port', 'Destination Port', 'Time Delta', 'Epoch']
+        fieldnames = ['Timestamp', 'Destination MAC', 'Source MAC', 'Ether Type', 'Total Length', 'Source IP', 'Destination IP', 'PID', 'Source Port', 'Destination Port', 'Time Delta', 'Epoch']
         
 
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -21,6 +21,7 @@ def write_to_csv(filename, byte_list, timestamp_list, dst_macs, src_macs, ether_
                 'Destination MAC': ''.join(dst_macs[i]),
                 'Source MAC': ''.join(src_macs[i]),
                 'Ether Type': ''.join(ether_types[i]),
+                'Total Length': ''.join(total_len[i]),
                 'Source IP': ''.join(src_ips[i]),
                 'Destination IP': ''.join(dst_ips[i]),
                 'PID': pids[i],

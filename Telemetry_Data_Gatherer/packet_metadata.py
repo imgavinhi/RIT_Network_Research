@@ -44,6 +44,7 @@ def metadata_lists(timestamp_list, byte_list):
     dst_macs = []
     src_macs = []
     ether_types = []
+    total_len = []
     src_ips = []
     dst_ips = []
     pids = []
@@ -57,6 +58,7 @@ def metadata_lists(timestamp_list, byte_list):
         dst_mac = packet[0:12]
         src_mac = packet[12:24]
         ether_type = packet[24:28]
+        leng = packet[32:36]
         src_ip = packet[52:60]
         dst_ip = packet[60:68]
         pid = packet[46:48]
@@ -87,6 +89,7 @@ def metadata_lists(timestamp_list, byte_list):
         dst_macs.append(dst_mac)
         src_macs.append(src_mac)
         ether_types.append(ether_type)
+        total_len.append(leng)
         src_ips.append(src_ip)
         dst_ips.append(dst_ip)
         pids.append(pid)
@@ -98,5 +101,5 @@ def metadata_lists(timestamp_list, byte_list):
     print(epochs)
     print(time_deltas)
 
-    return int_timestamps, dst_macs, src_macs, ether_types, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs
+    return int_timestamps, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs
 
