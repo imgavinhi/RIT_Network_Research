@@ -10,6 +10,8 @@ def statistics(csv_file):
     max_size = 0
     min_size = 0
 
+    packet_dictionary = {'ARP': 0, 'TCP': 0, 'UDP': 0, 'ICMP': 0}
+
     with open(csv_file, "r") as file:
         csv_reader = csv.reader(file)
         next(csv_reader)
@@ -34,4 +36,19 @@ def statistics(csv_file):
     print("Average Packet Length: " + str(av_size))
     print("Maximum Packet Length: " + str(max_size))
     print("Minimum Packet Length: " + str(min_size))
-                #packet_type = row[7] #PID vs EtherType?
+    
+    #PID is used for any packet classification in an IPv4 packet (or IPv6 but don't worry about that for now)
+    #ethertype is used to distinguish IPv4, IPv6, or ARP
+    #packet_type = row[7]
+    if row[3] == "0806":
+        packet_dictionary['ARP'] += 1
+    if row[3] == "0800":
+        if row[7] == "01":
+            packet_dictionary['ICMP'] += 1
+        elif row[7] == "06":
+            packet_dictionary['TCP'] += 1
+        elif row[7] == "11":
+            packet_dictionary['UDP'] += 1
+
+    print(packet_dictionary)
+
