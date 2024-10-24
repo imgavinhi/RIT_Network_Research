@@ -1,4 +1,3 @@
-'''
 Telemetry_Data_Gatherer:
 
 | telemetry_data.py | 
@@ -24,5 +23,3 @@ Generates summary statistics for parsed data packets including number of packets
 |example_parsed.txt|
 
 |example_parsed.csv|
-'''
-'''
