@@ -1,11 +1,10 @@
-''''
-parses the first x number of bytes from a packet
+'''
+Parses the first x number of bytes from a packet and adds padding if necessary.
 '''
 import re
 import os
 
-
-#EDIT TO ADD PADDING WHEN USER SPECIFIES A BYTE COUNT HIGHER THAN WHAT THE PACKET HAS
+# Function to parse packets from a file
 def packet_parser(file, byte_count):
     hex_char_count = int(byte_count) * 2  # Each byte is represented by two hex characters
     byte_list = []
@@ -21,27 +20,31 @@ def packet_parser(file, byte_count):
             # Extract timestamp if it matches the regex pattern
             match = re.search(timestamp_regex, line)
             if match:
-                timestamp = match.group(1)
-                timestamp_list.append(timestamp)
-                # Reset for new packet
-                current_packet_hex = []
-            
-            # Extract hex bytes from the lines that have hex data (those starting with 0x)
-            if re.search(r'0x[0-9a-fA-F]{4}', line):
-                hex_part = line.split(":")[1].strip()  # Get the hex data part after ':'
-                hex_bytes = hex_part.split()           # Split into individual hex bytes
-                # Extend current packet hex while filtering out non-hex characters
-                current_packet_hex.extend([byte for byte in hex_bytes if re.match(r'^[0-9a-fA-F]+$', byte)])
-                
-                # If we've collected enough hex characters, store them
-                if len(current_packet_hex) * 2 >= hex_char_count:
-                    # Join the hex bytes and limit to the required number of characters
+                # If there's data from a previous packet, store it before resetting
+                if current_packet_hex:
+                    # Join hex bytes and add padding if needed
                     hex_data = ''.join(current_packet_hex)[:hex_char_count]
-                    # If fewer bytes are collected than requested, pad with zeros
                     if len(hex_data) < hex_char_count:
                         hex_data += '0' * (hex_char_count - len(hex_data))
                     byte_list.append(hex_data)
-                    current_packet_hex = []  # Reset for the next packet
+                    current_packet_hex = []  # Reset for the new packet
+
+                timestamp = match.group(1)
+                timestamp_list.append(timestamp)
+
+            # Process hex bytes in the line (those starting with 0x)
+            if re.search(r'0x[0-9a-fA-F]{4}', line):
+                hex_part = line.split(":")[1].strip()  # Get the hex data part after ':'
+                hex_bytes = hex_part.split()           # Split into individual hex bytes
+                # Extend current packet hex with valid hex bytes
+                current_packet_hex.extend([byte for byte in hex_bytes if re.match(r'^[0-9a-fA-F]+$', byte)])
+
+        # Handle the last packet in the file if it didn't end with a new timestamp
+        if current_packet_hex:
+            hex_data = ''.join(current_packet_hex)[:hex_char_count]
+            if len(hex_data) < hex_char_count:
+                hex_data += '0' * (hex_char_count - len(hex_data))
+            byte_list.append(hex_data)
 
     # Write to output file
     wo_extension, extension = os.path.splitext(file)
@@ -55,5 +58,6 @@ def packet_parser(file, byte_count):
 
     print(f"File created: {new_file}")
 
-# Example usage:
-# packet_parser("your_packet_dump_file.txt", 32)  # Parses the first 32 hex chars
+# Example usage
+# packet_parser("path_to_your_input_file.txt", 200)
+

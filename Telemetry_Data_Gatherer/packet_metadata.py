@@ -62,10 +62,11 @@ def metadata_lists(timestamp_list, byte_list):
         src_ip = packet[52:60]
         dst_ip = packet[60:68]
         pid = packet[46:48]
-
+        
+        #CHECK AGAIN LATER TO DETERMINE IF THIS IS INCORRECT
         if pid in ['11', '06']:
-            src_port = packet[65:68]
-            dst_port = packet[69:72]
+            src_port = packet[65:69]
+            dst_port = packet[69:73]
         else:
             src_port = '0000'
             dst_port = '0000'
