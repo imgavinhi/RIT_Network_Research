@@ -37,9 +37,10 @@ y_cols =
 x_output_file =
 '''
 def numpy_x_y(x_rows, x_cols, x_output_file, y_rows, y_cols):
+    #".zeros" returns a new array of a given "shape" and type, filled with zeros
     #"flipping" the features matrix
-    x = np.zeroes((x_cols, x_rows))
-    y = np.zeroes((y_rows, y_cols))
+    x = np.zeros((x_cols, x_rows)) #array "shape" is a 2D array also matches appropraite size
+    y = np.zeros((y_rows, y_cols))
 
     i = 0
 
@@ -48,7 +49,32 @@ def numpy_x_y(x_rows, x_cols, x_output_file, y_rows, y_cols):
             for j in range(x_cols):
                 x[j][i]=int(line[j], 16) #
             i = i + 1
+    '''
+    x and y are both 2D Arrays filled with zeroes. 
+    x is __ by __
+    y is __ by __
+    '''
     return x, y
 
+'''
+This function provides the mean normalization value for x
+feature = the number of features
 
+'''
+def mean_normalization(x, features):
+    #".shape" returns the shape of an array (in this case 2D array)
+    x_normalized = np.zeros((x.shape[0], x.shape[1]))
 
+    for i in range(x.shape[1]):
+        #".sum" returns a sum of array elements over a given axis
+        x_sum = np.sum(x[:,i]) #x_sum is the sum of x's column of the current iteration
+        x_mean = x_sum/features #sum of x's current column divided by the number of features
+        for j in range(X.shape[0]):
+            x_normalized[j,i] = x[j,i] - x_mean #the value of the x_normalized array becomes x's value of the array - the mean of x_sum values
+    return x_normalized
+
+'''
+
+'''
+def fileds_and_labels(x_output_file, y):
+    pass
