@@ -2,6 +2,7 @@ import numpy as np
 from datetime impotr datetime
 import time
 import os
+from packet_labeler import *
 
 '''
 This function...
@@ -74,13 +75,16 @@ def mean_normalization(x, features):
     return x_normalized
 
 '''
+This function utilizes packet_labeler.py to assign labels to each type of packet pased on the hex data it is given for a packet
 
+Primarily targets ICMP Echo Request, ICMP Echo Reply, ARP Request, and ARP Reply
 '''
 def fileds_and_labels(x_output_file, y):
     icmp_request_ctr = 0
     icmp_reply_ctr = 0
     arp_request_ctr = 0
     arp_reply_ctr = 0
+    ctr = 0
 
     with open(x_output_file) as traffic:
         for line in traffic:
@@ -88,7 +92,19 @@ def fileds_and_labels(x_output_file, y):
             x_line_data = line
             l2_type = x_line_data[24:28]
 
+            #ipv4
             if l2_type == '0800':
-                icmp_request_ctr, icmp_reply_ctr = #INSERT HERE
+                packet, traffic_class_int, icmp_request_ctr, icmp_reply_ctr = ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr)
+            
+            #arp
+            if l2_type == "0806":
+                packet, traffic_class_int, arp_request_ctr, arp_reply_ctr = arp_labeler(x_line_data, arp_request_ctr, arp_reply_ctr)
+
+
+            traffic_class_int = str(traffic_class_int)
+            y[ctr] = traffic_class_int
+            ctr += 1
+
+            packet, x_line_data = "", ""
     return y
 

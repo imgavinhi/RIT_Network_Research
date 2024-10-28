@@ -2,6 +2,8 @@
 This file will provide labels based on the l2_type of the ipv4 packet
 '''
 
+#this function defines labels for IPv4 packets. So far it only does ICMP Echo Requests and Echo Replies
+#utilizes traffic class ints of 3 and 4
 def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
     traffic_class_int = 0
     packet = "No Match"
@@ -16,10 +18,29 @@ def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
         #reply type/code = 0000
         if icmp_type_code == '0800':
             packet = 'IPv4 ICMP Request'
-            traffic_class_int = 1
+            traffic_class_int = 3
             icmp_request_ctr = icmp_request_ctr+1
         if icmp_type_code == '0000'
             packet = 'IPv4 ICMP Reply'
-            traffic_class_int = 2
+            traffic_class_int = 4
             icmp_reply_ctr = icmp_reply_ctr+1
-    return packet, traffic_int_class, icmp_request_ctr, icmp_reply_ctr
+    return packet, traffic_class_int, icmp_request_ctr, icmp_reply_ctr
+
+#this function defines labels for ARP packets
+#utilizes traffic class ints of 1 and 2
+def arp_labeler(x_line_data, arp_request_ctr, arp_reply_ctr):
+    traffic_class_int = 0
+    packet = "No Match"
+
+    arp_type_code = x_line_data[40:44] #double check when running
+    print(arp_type_code)
+    if arp_type_code == "0001":
+        packet = "ARP Echo Request"
+        traffic_class_int = 1
+        arp_request_ctr = arp_request_ctr + 1
+    if arp_type_code == "0002":
+        packet = "ARP Echo Reply"
+        traffic_class_int = 2
+        arp_reply_ctr = arp_reply_ctr + 1
+    return packet, traffic_class_int, arp_request_ctr, arp_reply_ctr
+
