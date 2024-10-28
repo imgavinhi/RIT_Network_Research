@@ -137,3 +137,35 @@ def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_fil
 
         np.save(y_labels_file, y)
         np.save(x_features_file, x_normalize)
+
+
+'''
+Notes for 10/28/2024:
+    1) capture
+        training data?
+        how many files?
+        naming convention (ex: dataset_x.txt)
+            will be dumped into a file name list
+    2) preprocess 
+        remove artifacts, truncate, pad (features = length of packet)
+    3) eliminate unknown classes or labels
+        known: Both ARPs and both ICMPs (remove the rest and timestamps)
+    4) convert to proper data format
+        seen: wireshark_parser.py
+
+    Look at pytorch tutorials (python array > numpy array > pytorch array)
+
+    wireshark_parser.py:
+        |data_clear| performs preprocessing
+        |fields_and_labels| creates ground truth and creates counters to ensure ground truth. Returns the ground truth (y)
+        |x_normalize| Divides all values of x by 16. This is done to make data fall within a reasonable (easy to graph) scale
+        |numpy_x_y|
+        |preprocessor| Creates cleaned x source files to num rows to define how big data structure for numpy is. Uses numpy_x_y to create numpy data structures based on number of rows in a cleaned capture, features and populates them with zeros. Defines y with fields_and_labels. Then saves numpy files (x is now fully populated with correct formats based on cleaned data. It is then taken to be normalized) (y labels are then written directory to the y numpy file and saved). Ultimately saved into numpy x and y feature numpy matrices.
+
+    Think of parsed hex data as a matrix with hex characters by number of packets
+    For matrix math this will be transposed (flipped)
+
+    What to do:
+        -put captures, parsed, and csv data sets into directories in each file
+        -move ml architecture from directory to github/Telemetry_Gatherer
+'''
