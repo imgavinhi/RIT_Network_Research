@@ -108,3 +108,32 @@ def fileds_and_labels(x_output_file, y):
             packet, x_line_data = "", ""
     return y
 
+'''
+This preprocessor parses captures and then utilizes other functions within this file to construct numpy files based on the features and labels captured 
+'''
+def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_file_list, y_test_file_list):
+    x_row = 0
+    y_row = 0
+    y_cols = 1
+    x_cols = features
+
+    for i in range(len(dataset_file_list)):
+        #utilize packet parser here
+        #maybe remove the timestamps here from parsed packets
+        pass
+
+    for i in range(len(cleaned_file_list)):
+        x_source_file = cleaned_file_list[i]
+        x_features_file = x_test_file_list[i]
+        y_labels_file = y_test_file_list[i]
+
+        x_rows, y_rows = num_rows(x_source_file)
+
+        x, y = numpy_x_y(x_rows, x_cols, x_source_file, y_rows, y_cols)
+
+        x_normalized = mean_normalization(x, features)
+
+        y = fields_and_labels(x_source_file, y)
+
+        np.save(y_labels_file, y)
+        np.save(x_features_file, x_normalize)
