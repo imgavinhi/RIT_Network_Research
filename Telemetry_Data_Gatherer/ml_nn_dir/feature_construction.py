@@ -77,4 +77,18 @@ def mean_normalization(x, features):
 
 '''
 def fileds_and_labels(x_output_file, y):
-    pass
+    icmp_request_ctr = 0
+    icmp_reply_ctr = 0
+    arp_request_ctr = 0
+    arp_reply_ctr = 0
+
+    with open(x_output_file) as traffic:
+        for line in traffic:
+            #will need to skip timestamp lines
+            x_line_data = line
+            l2_type = x_line_data[24:28]
+
+            if l2_type == '0800':
+                icmp_request_ctr, icmp_reply_ctr = #INSERT HERE
+    return y
+
