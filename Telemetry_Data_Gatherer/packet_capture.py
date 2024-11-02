@@ -14,13 +14,11 @@ def capture_packets(interface, filename, packet_count):
     # Create the tcpdump command
     capture_command = ['sudo', 'tcpdump', '-i', interface, '-c', str(packet_count), '-XX', '-tttt']
 
+    cap_dir = "captures/"
+    file_w_dir = os.path.join(cap_dir, filename)
+
     # Open the output file in write mode
-    with open(filename, 'w') as f:
+    with open(file_w_dir, 'w') as f:
         # Run the command and redirect stdout to the file
         subprocess.run(capture_command, stdout=f)
-
-    # Generate the k12 filename
-    file = os.path.splitext(filename)[0]
-    new_filename = file + ".txt"
-
 
