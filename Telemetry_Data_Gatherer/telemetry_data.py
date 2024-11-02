@@ -49,7 +49,7 @@ def main():
         elif command == "S":
             csv_file = input("Please specify CSV data file: ")
             statistics(csv_file)
-            time.sleep(5)
+            input("Press Enter to Continue.")
         elif command == "Q":
             print("Quitting Telemtry Data Gathering Script...")
             run = False
