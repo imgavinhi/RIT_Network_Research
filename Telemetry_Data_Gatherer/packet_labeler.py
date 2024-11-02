@@ -20,7 +20,7 @@ def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
             packet = 'IPv4 ICMP Request'
             traffic_class_int = 3
             icmp_request_ctr = icmp_request_ctr+1
-        if icmp_type_code == '0000'
+        if icmp_type_code == '0000':
             packet = 'IPv4 ICMP Reply'
             traffic_class_int = 4
             icmp_reply_ctr = icmp_reply_ctr+1

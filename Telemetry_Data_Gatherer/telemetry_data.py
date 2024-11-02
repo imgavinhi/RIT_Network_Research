@@ -8,6 +8,12 @@ from packet_csv import write_to_csv
 import packet_metadata
 from packet_capture import capture_packets
 from statistics import statistics
+from feature_construction import *
+from gen_net_model_mlp import *
+from packet_identifier_architecture import *
+from packet_labeler import *
+
+
 from os import system
 import os
 import subprocess
@@ -23,7 +29,7 @@ def main():
 
         print("********TELEMETRY DATA GATHERING SCRIPT********\n")
         print("Please select one of the following options:")
-        print("\tP: Parse K12 Packet File\n\tD: Create Dataset in CSV format\n\tC: Capture Packets\n\tS: View Capture Statistics\n\tQ: Quit Program")
+        print("\tP: Parse K12 Packet File\n\tD: Create Dataset in CSV format\n\tC: Capture Packets\n\tS: View Capture Statistics\n\tM: Machine Learning Neural Network\n\tQ: Quit Program")
         command = input("\nPlease select a choice: ")
         command = command.upper()
         if command == "P":
@@ -50,6 +56,8 @@ def main():
             csv_file = input("Please specify CSV data file: ")
             statistics(csv_file)
             input("Press Enter to Continue.")
+        elif command == "M":
+            model_main()
         elif command == "Q":
             print("Quitting Telemtry Data Gathering Script...")
             run = False

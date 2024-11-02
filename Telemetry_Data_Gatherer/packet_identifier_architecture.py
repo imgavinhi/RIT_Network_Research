@@ -34,15 +34,13 @@ def file_loader(x_train_file, y_train_file, classes):
         y_labels[j][y_val] = 1 #SAY WHY
     return x_train, y_labels, feature_count
 
-def main():
+def model_main():
     tick = datetime.now()
 
-    script_dir = 
-
-    capture_dir = "\\capture"
-    cleaned_datasets_dir = "\\parsed_captures"
-    numpy_dir = "\\numpy_files"
-    conv_dir = "\\dataset_conv" #this directory is for...
+    capture_dir = "\\capture\\"
+    cleaned_datasets_dir = "\\parsed_captures\\"
+    numpy_dir = "\\numpy_files\\"
+    conv_dir = "\\dataset_conv\\" #this directory is for...
 
     features = 11
     iterations = 101
@@ -54,25 +52,25 @@ def main():
 
     x_files, y_files, dataset_files, cleaned_files = [], [], [], []
 
-    x_train_file = numpy_dir + +"w_dataset0_features.npy"
+    x_train_file = numpy_dir +"w_dataset0_features.npy"
     y_train_file = numpy_dir + "w_dataset0_labels.npy"
 
     print("\nCreating necessary file lists.\n")
 
     #builds necessary file list
-    for i in range_(0, num_data_files):
+    for i in range(0, num_data_files):
         #standardize capture, parsed, and csv names
         filename = capture_dir+"dataset"+str(i)+".txt"
-        dataset_fies.append(filename)
+        dataset_files.append(filename)
 
-        cleaned_file = cleaned_dataset_dir+"w_dataset"+str(i)+".txt"
+        cleaned_file = cleaned_datasets_dir+"w_dataset"+str(i)+".txt"
         cleaned_files.append(cleaned_file)
 
-        X_file=numpy_dir+"w_dataset"+str(i)+"_features.npy"
-        X_test_files.append(X_file)
+        x_file=numpy_dir+"w_dataset"+str(i)+"_features.npy"
+        x_files.append(x_file)
         
-        Y_file=numpy_dir+"w_dataset"+str(i)+"_labels.npy"
-        Y_test_files.append(Y_file)
+        y_file=numpy_dir+"w_dataset"+str(i)+"_labels.npy"
+        y_files.append(y_file)
 
     #preproccess_main() in feature construction
     print("Completing Preprocessing...")
