@@ -15,11 +15,23 @@ Generates metadata based on parsed txt file. Determines epoch time, delta time, 
 | packet_csv.py |
 Generates data csv with parsed and meta data information.
 
-|statistics.py|
+| statistics.py |
 Generates summary statistics for parsed data packets including number of packets, packet distribution, average packet length, max packet length, and min packet length.
 
-|example.txt|
+| feature_construction.py |
 
-|example_parsed.txt|
+| packet_labeler.py |
 
-|example_parsed.csv|
+| gen_net_model_mlp.py |
+
+| packet_identifier_architecture.py |
+
+| captures (dir) |
+
+| parsed_captures (dir) |
+
+| data_sets (dir) |
+
+| numpy_files (dir) |
+
+| datasets_conv (dir) |
