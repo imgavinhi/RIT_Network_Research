@@ -6,6 +6,8 @@ import os
 
 # Function to parse packets from a file
 def packet_parser(file, byte_count):
+    cap_dir = "captures/"
+    cap_file = os.path.join(cap_dir, file)
     hex_char_count = int(byte_count) * 2  # Each byte is represented by two hex characters
     byte_list = []
     timestamp_list = []
@@ -15,7 +17,7 @@ def packet_parser(file, byte_count):
     
     current_packet_hex = []
     
-    with open(file, 'r') as f:
+    with open(cap_file, 'r') as f:
         for line in f:
             # Extract timestamp if it matches the regex pattern
             match = re.search(timestamp_regex, line)
@@ -49,8 +51,12 @@ def packet_parser(file, byte_count):
     # Write to output file
     wo_extension, extension = os.path.splitext(file)
     new_file = f"{wo_extension}_parsed.txt"
+
+    parsed_dir = "parsed_captures/"
+    parsed_file = os.path.join(parsed_dir, new_file)
+
     
-    with open(new_file, "w") as n:
+    with open(parsed_file, "w") as n:
         for index, packet in enumerate(byte_list):
             if index < len(timestamp_list):  # Ensure there's a timestamp for each packet
                 n.write(f"{timestamp_list[index]}\n")  # Write timestamp
