@@ -88,7 +88,7 @@ This function utilizes packet_labeler.py to assign labels to each type of packet
 
 Primarily targets ICMP Echo Request, ICMP Echo Reply, ARP Request, and ARP Reply
 '''
-def fileds_and_labels(x_output_file, y):
+def fields_and_labels(x_output_file, y):
     icmp_request_ctr = 0
     icmp_reply_ctr = 0
     arp_request_ctr = 0
