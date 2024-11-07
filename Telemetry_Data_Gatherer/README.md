@@ -1,6 +1,6 @@
 Telemetry_Data_Gatherer:
 
-| telemetry_data.py | 
+| telemetry_data.py |
 Main application. It calls the rest of the files, supporting packet capture, parsing a packet, converting packet metadata into a csv format for statistical analysis, and, eventually, generating summary statistics
 
 | packet_capture.py |
