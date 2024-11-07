@@ -37,10 +37,10 @@ def file_loader(x_train_file, y_train_file, classes):
 def model_main():
     tick = datetime.now()
 
-    capture_dir = "\\capture\\"
-    cleaned_datasets_dir = "\\parsed_captures\\"
-    numpy_dir = "\\numpy_files\\"
-    conv_dir = "\\dataset_conv\\" #this directory is for...
+    capture_dir = "captures/"
+    cleaned_datasets_dir = "parsed_captures/"
+    numpy_dir = "numpy_files/"
+    conv_dir = "datasets_conv/" #this directory is for...
 
     features = 11
     iterations = 101
