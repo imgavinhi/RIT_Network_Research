@@ -6,6 +6,7 @@ import torch.utils.data as data_utils
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import time
+import os
 
 from packet_parser import *
 from feature_construction import *
@@ -60,16 +61,16 @@ def model_main():
     #builds necessary file list
     for i in range(0, num_data_files):
         #standardize capture, parsed, and csv names
-        filename = capture_dir+"dataset"+str(i)+".txt"
+        filename = os.path.join(capture_dir, "w_dataset"+str(i)+".txt")
         dataset_files.append(filename)
 
-        cleaned_file = cleaned_datasets_dir+"w_dataset"+str(i)+".txt"
+        cleaned_file = os.path.join(cleaned_datasets_dir,"w_dataset"+str(i)+"_parsed.txt")
         cleaned_files.append(cleaned_file)
 
-        x_file=numpy_dir+"w_dataset"+str(i)+"_features.npy"
+        x_file= os.path.join(numpy_dir, "w_dataset"+str(i)+"_features.npy")
         x_files.append(x_file)
         
-        y_file=numpy_dir+"w_dataset"+str(i)+"_labels.npy"
+        y_file= os.path.join(numpy_dir, "w_dataset"+str(i)+"_labels.npy")
         y_files.append(y_file)
 
     #preproccess_main() in feature construction
