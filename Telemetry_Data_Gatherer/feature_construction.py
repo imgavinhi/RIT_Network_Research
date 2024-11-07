@@ -3,6 +3,9 @@ from datetime import datetime
 import time
 import os
 from packet_labeler import *
+import re
+
+timestamp_pattern = r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+'
 
 '''
 This function...
@@ -19,9 +22,12 @@ def num_rows(filename):
 
     with open(filename) as data:
         for line in data:
-            #WILL PROBABLY HAVE TO REMOVE/SKIP TIMESTAMPS IN PARSED FILE
-            x_rows = x_rows+1
-            y_rows =y_rows+1
+            #WILL HAVE TO REMOVE/SKIP TIMESTAMPS IN PARSED FILE
+            if re.match(timestamp_pattern, line):
+                continue
+            else:
+                x_rows = x_rows+1
+                y_rows =y_rows+1
     return x_rows, y_rows
 
 '''
@@ -47,9 +53,12 @@ def numpy_x_y(x_rows, x_cols, x_output_file, y_rows, y_cols):
 
     with open(x_output_file) as traffic:
         for line in traffic:
-            for j in range(x_cols):
-                x[j][i]=int(line[j], 16) #
-            i = i + 1
+            if re.match(timestamp_pattern, line):
+                continue
+            else:
+                for j in range(x_cols):
+                    x[j][i]=int(line[j], 16) #
+                i = i + 1
     '''
     x and y are both 2D Arrays filled with zeroes. 
     x is __ by __
@@ -70,7 +79,7 @@ def mean_normalization(x, features):
         #".sum" returns a sum of array elements over a given axis
         x_sum = np.sum(x[:,i]) #x_sum is the sum of x's column of the current iteration
         x_mean = x_sum/features #sum of x's current column divided by the number of features
-        for j in range(X.shape[0]):
+        for j in range(x.shape[0]):
             x_normalized[j,i] = x[j,i] - x_mean #the value of the x_normalized array becomes x's value of the array - the mean of x_sum values
     return x_normalized
 
