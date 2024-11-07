@@ -8,7 +8,9 @@ import os
 def write_to_csv(filename, byte_list, timestamp_list, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs):
     wo_extension, extension = os.path.splitext(filename)
     new_filename = str(wo_extension) + ".csv"
-    with open(new_filename, 'w', newline='') as csvfile:
+    csv_dir = "data_sets/"
+    csv_file = os.path.join(csv_dir, new_filename)
+    with open(csv_file, 'w', newline='') as csvfile:
         fieldnames = ['Timestamp', 'Destination MAC', 'Source MAC', 'Ether Type', 'Total Length', 'Source IP', 'Destination IP', 'PID', 'Source Port', 'Destination Port', 'Time Delta', 'Epoch']
         
 

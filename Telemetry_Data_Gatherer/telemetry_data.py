@@ -43,7 +43,9 @@ def main():
             #write_to_csv(byte_list, timestamp_list, dst_macs, src_macs, ether_types, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs)
         elif command == "D":
             filename = input("Please enter parsed text file name: ")
-            timestamp_list, byte_list = packet_metadata.make_lists(filename)
+            parsed_dir = "parsed_captures/"
+            parsed_file = os.path.join(parsed_dir, filename)
+            timestamp_list, byte_list = packet_metadata.make_lists(parsed_file)
             int_timestamps, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs = packet_metadata.metadata_lists(timestamp_list, byte_list)
             write_to_csv(filename, byte_list, timestamp_list, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs)
 

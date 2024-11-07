@@ -3,6 +3,7 @@ generate summary statistics for parsed data packets
 this includes number of different types of packets, etc
 '''
 import csv
+import os
 
 def statistics(csv_file):
     packet_count = 0
@@ -11,8 +12,9 @@ def statistics(csv_file):
     min_size = 0
 
     packet_dictionary = {'ARP': 0, 'TCP': 0, 'UDP': 0, 'ICMP': 0}
-
-    with open(csv_file, "r") as file:
+    csv_dir = "data_sets/"
+    new_csv_file = os.path.join(csv_dir, csv_file)
+    with open(new_csv_file, "r") as file:
         csv_reader = csv.reader(file)
         next(csv_reader)
         for row in csv_reader:
