@@ -3,6 +3,7 @@ from datetime import datetime
 import time
 import os
 from packet_labeler import *
+from packet_parser import *
 import re
 
 timestamp_pattern = r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+'
@@ -127,9 +128,9 @@ def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_fil
     x_cols = features
 
     for i in range(len(dataset_file_list)):
-        #utilize packet parser here
-        #maybe remove the timestamps here from parsed packets
-        pass
+        x_outfile = dataset_file_list[i]
+
+        packet_parser(x_outfile, 200)
 
     for i in range(len(cleaned_file_list)):
         x_source_file = cleaned_file_list[i]
