@@ -60,6 +60,7 @@ def main():
             input("Press Enter to Continue.")
         elif command == "M":
             model_main()
+            input("Press Enter to Continue...")
         elif command == "Q":
             print("Quitting Telemtry Data Gathering Script...")
             run = False

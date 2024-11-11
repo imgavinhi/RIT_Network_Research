@@ -45,7 +45,7 @@ def packet_choice(predictions):
         packet_class = []
         packet_type = ""
 
-    print("Total Packets:\t", packet_ounter)
+    print("Total Packets:\t", packet_counter)
     print("IPv4 Packets:\t", ipv4_counter)
     print("0-Other:\t", no_match_counter)
     print("1-ARP Request:\t", arp_req_counter)

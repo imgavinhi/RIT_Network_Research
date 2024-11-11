@@ -6,6 +6,7 @@ import torch.utils.data as data_utils
 
 from datetime import datetime
 import os.path
+from predictions import *
 
 #defines the main operations for the machine learning neaural network
 def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count, iterations, hidden_nodes, classes, alpha, batch_size):
@@ -77,6 +78,7 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
         #stops neural network if error rate is lower than desired
         if loss.item() < 1e-8:
             print(datetime.now(), "Loss for epoch: ", epoch, loss.item())
+            input("Press Enter to Continue...")
             break
 
     torch.save(net_model.state_dict(), 'params.pt')
@@ -108,8 +110,7 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
             predicted[j] = place
         
         predicted_numpy = predicted.numpy()
-        # this is from "predictions" maybe substitute with my "statistics" packet_choice()
-        
+        packet_choice(predicted_numpy)
         accuracy(predicted_numpy, y_test)
         print("Accuracy:", accuracy)
 
