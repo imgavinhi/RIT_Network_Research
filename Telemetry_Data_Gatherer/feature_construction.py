@@ -99,17 +99,18 @@ def fields_and_labels(x_output_file, y):
     with open(x_output_file) as traffic:
         for line in traffic:
             #will need to skip timestamp lines
+            if re.match(timestamp_pattern, line):
+                continue
             x_line_data = line
+            
             l2_type = x_line_data[24:28]
 
             #ipv4
             if l2_type == '0800':
                 packet, traffic_class_int, icmp_request_ctr, icmp_reply_ctr = ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr)
-            
             #arp
             if l2_type == "0806":
                 packet, traffic_class_int, arp_request_ctr, arp_reply_ctr = arp_labeler(x_line_data, arp_request_ctr, arp_reply_ctr)
-
 
             traffic_class_int = str(traffic_class_int)
             y[ctr] = traffic_class_int
@@ -147,7 +148,7 @@ def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_fil
         y = fields_and_labels(x_source_file, y)
 
         np.save(y_labels_file, y)
-        np.save(x_features_file, x_normalize)
+        np.save(x_features_file, x_normalized)
 
 
 '''

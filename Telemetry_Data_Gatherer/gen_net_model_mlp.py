@@ -10,6 +10,8 @@ import os.path
 #defines the main operations for the machine learning neaural network
 def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count, iterations, hidden_nodes, classes, alpha, batch_size):
     d_in = feature_count
+    print(d_in)
+    print(type(d_in))
     h2 = hidden_nodes
     h1 = 2* hidden_nodes
 
@@ -22,12 +24,12 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
     train_loader = data_utils.DataLoader(train, batch_size=batch_size, shuffle=False)
 
     net_model = torch.nn.Sequential(
-            torch.nn.Linear(d_in, h1),
-            torch.nn.ReLu(),
+            torch.nn.Linear(int(d_in.shape[0]), h1),
+            torch.nn.ReLU(),
             torch.nn.Linear(h1, h2),
-            torch.nn.ReLu(),
+            torch.nn.ReLU(),
             torch.nn.Linear(h1, h2),
-            torch.nn.ReLu(),
+            torch.nn.ReLU(),
             torch.nn.Linear(h2, d_out),
             torch.nn.Softmax(dim=1)
     )
@@ -35,7 +37,7 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
     dtype = torch.float
 
     use_cuda = torch.cuda.is_available()
-    device = torch.device("cuda:0" if use_cide else "cpu")
+    device = torch.device("cuda:0" if use_cuda else "cpu")
     x = x_train
     y = y_labels
 

@@ -24,15 +24,15 @@ def file_loader(x_train_file, y_train_file, classes):
     x_train = torch.from_numpy(numpy_x_train).float()
     
     numpy_y_train = np.load(y_train_file)
-    numpy_y_train = transpose(numpy_y_train)
+    #numpy_y_train = transpose(numpy_y_train)
     y_train = torch.from_numpy(numpy_y_train)
     y_labels = torch.zeros(x_train.shape[0], classes) #DEFINE
 
-    feature_count = x_train_shape[1]
+    feature_count = x_train[1]
 
     for i in range(y_train.shape[1]):
-        y_val = int(y_train[0][j])
-        y_labels[j][y_val] = 1 #SAY WHY
+        y_val = int(y_train[0][i])
+        y_labels[i][y_val] = 1 #SAY WHY
     return x_train, y_labels, feature_count
 
 def model_main():
@@ -48,7 +48,7 @@ def model_main():
     alpha = 1e-5
     hidden_nodes = 28
     classes = 14
-    bacth_size = 128 
+    batch_size = 128 
     num_data_files = 3
 
     x_files, y_files, dataset_files, cleaned_files = [], [], [], []
@@ -87,7 +87,7 @@ def model_main():
 
         print("\nCalling MLP Model...\n")
 
-        gen_net_mlp_model(x_train, y_labels, x_files, y_files, feature_count, iterations, hidden_nodes, classes, alpha, batch_size)
+        gen_net_mlp_main(x_train, y_labels, x_files, y_files, feature_count, iterations, hidden_nodes, classes, alpha, batch_size)
 
 if __name__ == "__main__":
     main()
