@@ -61,7 +61,8 @@ def model_main():
     #builds necessary file list
     for i in range(0, num_data_files):
         #standardize capture, parsed, and csv names
-        filename = os.path.join(capture_dir, "w_dataset"+str(i)+".txt")
+        #filename = os.path.join(capture_dir, "w_dataset"+str(i)+".txt")
+        filename = os.path.join("w_dataset"+str(i)+".txt")
         dataset_files.append(filename)
 
         cleaned_file = os.path.join(cleaned_datasets_dir,"w_dataset"+str(i)+"_parsed.txt")
