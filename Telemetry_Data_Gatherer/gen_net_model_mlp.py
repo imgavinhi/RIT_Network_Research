@@ -13,7 +13,7 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
     print(d_in)
     print(type(d_in))
     h2 = hidden_nodes
-    h1 = 2* hidden_nodes
+    h1 = hidden_nodes #typically *2
 
     iteration_ctr = 0
     d_out = classes
