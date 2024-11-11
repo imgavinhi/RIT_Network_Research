@@ -10,8 +10,8 @@ import os.path
 #defines the main operations for the machine learning neaural network
 def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count, iterations, hidden_nodes, classes, alpha, batch_size):
     d_in = feature_count
-    print(d_in)
-    print(type(d_in))
+#    print(d_in) FOR DEBUGGIN
+#    print(type(d_in))
     h2 = hidden_nodes
     h1 = hidden_nodes *2
 
@@ -40,8 +40,11 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
 
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda:0" if use_cuda else "cpu")
+    print("Device:", device)
     x = x_train
+    print("X Shape:", x.size())
     y = y_labels
+    print("Y Shape:", y.size())
 
     loss_array = torch.zeros(epochs, 1)
     tick = datetime.now()
@@ -108,6 +111,7 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
         # this is from "predictions" maybe substitute with my "statistics" packet_choice()
         
         accuracy(predicted_numpy, y_test)
+        print("Accuracy:", accuracy)
 
 def accuracy(predictions, y_test):
     accuracy_count = 0
