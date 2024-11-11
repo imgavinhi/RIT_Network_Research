@@ -13,7 +13,9 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
     print(d_in)
     print(type(d_in))
     h2 = hidden_nodes
-    h1 = hidden_nodes #typically *2
+    h1 = hidden_nodes *2
+
+    print("Model Basic Params:", feature_count, iterations, hidden_nodes, classes, alpha, batch_size)
 
     iteration_ctr = 0
     d_out = classes
@@ -26,7 +28,7 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
     net_model = torch.nn.Sequential(
             torch.nn.Linear(int(d_in.shape[0]), h1),
             torch.nn.ReLU(),
-            torch.nn.Linear(h1, h2),
+            torch.nn.Linear(h1, h1),
             torch.nn.ReLU(),
             torch.nn.Linear(h1, h2),
             torch.nn.ReLU(),
