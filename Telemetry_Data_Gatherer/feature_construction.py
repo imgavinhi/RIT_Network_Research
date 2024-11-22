@@ -105,6 +105,8 @@ def fields_and_labels(x_output_file, y):
             
             l2_type = x_line_data[24:28]
 
+            print("l2_type", l2_type)
+
             #ipv4
             if l2_type == '0800':
                 packet, traffic_class_int, icmp_request_ctr, icmp_reply_ctr = ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr)
