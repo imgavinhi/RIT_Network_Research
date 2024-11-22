@@ -76,7 +76,7 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
         epoch_count += 1
 
         #stops neural network if error rate is lower than desired
-        if loss.item() < 1e-8:
+        if loss.item() < 1e-10:
             print(datetime.now(), "Loss for epoch: ", epoch, loss.item())
             input("Press Enter to Continue...")
             break
@@ -112,7 +112,6 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
         predicted_numpy = predicted.numpy()
         packet_choice(predicted_numpy)
         accuracy(predicted_numpy, y_test)
-        print("Accuracy:", accuracy)
 
 def accuracy(predictions, y_test):
     accuracy_count = 0
