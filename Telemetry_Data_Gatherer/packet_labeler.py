@@ -20,7 +20,7 @@ def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
             packet = 'IPv4 ICMP Request'
             traffic_class_int = 3
             icmp_request_ctr = icmp_request_ctr+1
-        if icmp_type_code == '0000':
+        elif icmp_type_code == '0000':
             packet = 'IPv4 ICMP Reply'
             traffic_class_int = 4
             icmp_reply_ctr = icmp_reply_ctr+1
@@ -31,16 +31,17 @@ def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
 def arp_labeler(x_line_data, arp_request_ctr, arp_reply_ctr):
     traffic_class_int = 0
     packet = "No Match"
-
-    arp_type_code = x_line_data[40:44] #double check when running
-    print(arp_type_code)
-    if arp_type_code == "0001":
-        packet = "ARP Echo Request"
-        traffic_class_int = 1
-        arp_request_ctr = arp_request_ctr + 1
-    if arp_type_code == "0002":
-        packet = "ARP Echo Reply"
-        traffic_class_int = 2
-        arp_reply_ctr = arp_reply_ctr + 1
+    l2_type = x_line_data[24:28]
+    if l2_type == "0806":
+        arp_type_code = x_line_data[40:44] #double check when running
+        print("ARP:", arp_type_code)
+        if arp_type_code == "0001":
+            packet = "ARP Echo Request"
+            traffic_class_int = 1
+            arp_request_ctr = arp_request_ctr + 1
+        elif arp_type_code == "0002":
+            packet = "ARP Echo Reply"
+            traffic_class_int = 2
+            arp_reply_ctr = arp_reply_ctr + 1
     return packet, traffic_class_int, arp_request_ctr, arp_reply_ctr
 
