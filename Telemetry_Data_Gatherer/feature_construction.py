@@ -133,7 +133,7 @@ def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_fil
     for i in range(len(dataset_file_list)):
         x_outfile = dataset_file_list[i]
 
-        packet_parser(x_outfile, 200)
+        packet_parser(x_outfile, features)
 
     for i in range(len(cleaned_file_list)):
         x_source_file = cleaned_file_list[i]
