@@ -44,9 +44,9 @@ def model_main():
     conv_dir = "datasets_conv/" #this directory is for...
 
     features = 84
-    iterations = 1001
-    alpha = 1e-4
-    hidden_nodes = 64
+    iterations = 501
+    alpha = 1e-6
+    hidden_nodes = 32
     classes = 4
     batch_size = 128
     num_data_files = 4

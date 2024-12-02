@@ -121,7 +121,7 @@ def accuracy(predictions, y_test):
             accuracy_count += 1
 
     print("\nTotal Predictions:", total, "Accuracy Count:", accuracy_count)
-    print("\nAccuracy of Predictions:", accuracy_count/total)
+    print("\nAccuracy of Predictions:", accuracy_count/total, "\n")
 
 #This provides an optimizer for the machine learning algorithm, "Everyone cchooses Adam" --Hartpence
 def optimizer_pick(choice, net_model, alpha):
