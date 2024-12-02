@@ -34,7 +34,7 @@ def arp_labeler(x_line_data, arp_request_ctr, arp_reply_ctr):
     l2_type = x_line_data[24:28]
     if l2_type == "0806":
         arp_type_code = x_line_data[40:44] #double check when running
-        print("ARP:", arp_type_code)
+        #print("ARP:", arp_type_code)
         if arp_type_code == "0001":
             packet = "ARP Echo Request"
             traffic_class_int = 1

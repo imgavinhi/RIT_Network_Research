@@ -45,10 +45,10 @@ def model_main():
 
     features = 84
     iterations = 1001
-    alpha = 1e-6
-    hidden_nodes = 42
+    alpha = 1e-4
+    hidden_nodes = 64
     classes = 4
-    batch_size = 128 
+    batch_size = 128
     num_data_files = 4
 
     x_files, y_files, dataset_files, cleaned_files = [], [], [], []
@@ -76,6 +76,7 @@ def model_main():
 
     #preproccess_main() in feature construction
     print("Completing Preprocessing...")
+    print("Dataset Files: ", len(dataset_files),"\nCleaned Files: ", len(cleaned_files), "\nx_files: ", len(x_files), "\ny_files: ", y_files)
     preprocessor_main(features, dataset_files, cleaned_files, x_files, y_files)
     
     for i in range(0,1):
