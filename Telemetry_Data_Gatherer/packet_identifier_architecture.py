@@ -48,8 +48,8 @@ def model_main():
     alpha = 1e-6
     hidden_nodes = 60
     classes = 4
-    batch_size = 3000 
-    num_data_files = 3
+    batch_size = 4000 
+    num_data_files = 4
 
     x_files, y_files, dataset_files, cleaned_files = [], [], [], []
 
