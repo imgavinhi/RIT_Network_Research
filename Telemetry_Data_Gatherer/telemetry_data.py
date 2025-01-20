@@ -29,11 +29,20 @@ def main():
 
         print("********TELEMETRY DATA GATHERING SCRIPT********\n")
         print("Please select one of the following options:")
-        print("\tP: Parse K12 Packet File\n\tD: Create Dataset in CSV format\n\tC: Capture Packets\n\tS: View Capture Statistics\n\tM: Machine Learning Neural Network\n\tQ: Quit Program")
+        print("\tP: Parse Capture Packet\n\tD: Create Dataset in CSV format\n\tC: Capture Packets\n\tS: View Capture Statistics\n\tM: Machine Learning Neural Network\n\tQ: Quit Program")
         command = input("\nPlease select a choice: ")
         command = command.upper()
         if command == "P":
-            file_location = input("Please specify the capture location (txt capture files only): ")
+            
+            while True:
+                file_location = input("Please specify the capture name (txt files located in captures/ only): ")
+                full_path = os.path.join("captures/", file_location)
+
+                if os.path.isfile(full_path) and full_path.endswith(".txt"):
+                    break
+                else:
+                    print("Error: The file must be a '.txt' file located in the '{capture/}' directory")
+
             byte_count = input("Please specify the number of bytes you want from the packet: ")
         
             #have to change this so it is not stored in variables here, instead in a file that you read through to determine values
