@@ -43,7 +43,15 @@ def main():
                 else:
                     print("Error: The file must be a '.txt' file located in the '{capture/}' directory")
 
-            byte_count = input("Please specify the number of bytes you want from the packet: ")
+            while True:
+                try:
+                    byte_count = input("Please specify the number of bytes you want from the packet: ")
+                    if int(byte_count) > 0:
+                        break
+                    else:
+                        print("Error: Byte Count must be a positive integer.")
+                except ValueError:
+                    print("Error: Please input a valid integer.")
         
             #have to change this so it is not stored in variables here, instead in a file that you read through to determine values
             packet_parser(file_location, byte_count)
@@ -99,22 +107,6 @@ def main():
             run = False
         else:
             print("Please enter a valid input.")
-        '''
-        TESTING PURPOSES. IGNORE ME!
-        
-        print(byte_list[3])
-        print(int_timestamps[3])
-        print(dst_macs[3])
-        print(src_macs[3])
-        print(ether_types[3])
-        print(src_ips[3])
-        print(dst_ips[3])
-        print(pids[3])
-        print(src_ports[3])
-        print(dst_ports[3])
-        print(time_deltas[3])
-        print(epochs[3])
-        '''
 
 if __name__ == '__main__':
     main()
