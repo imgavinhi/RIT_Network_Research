@@ -53,7 +53,13 @@ def main():
             system("netstat -i")
 
             interface = input("\nPlease specify an interface to capture on: ")
-            filename = input("Please specify a capture filename (must be txt file): ")
+            while True:
+                filename = input("Please specify a capture filename (must be txt file): ")
+                if filename.endswith(".txt"):
+                    break
+                else:
+                    print("Error: File must end with a '.txt' extension")
+
             packet_count = input("Please specify the amount of packets to capture: ")
             capture_packets(interface, filename, packet_count)
         elif command == "S":
