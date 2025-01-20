@@ -50,7 +50,9 @@ def main():
             write_to_csv(filename, byte_list, timestamp_list, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs)
 
         elif command == "C":
-            interface = input("Please specify an interface to capture on: ")
+            system("netstat -i")
+
+            interface = input("\nPlease specify an interface to capture on: ")
             filename = input("Please specify a capture filename (must be txt file): ")
             packet_count = input("Please specify the amount of packets to capture: ")
             capture_packets(interface, filename, packet_count)
