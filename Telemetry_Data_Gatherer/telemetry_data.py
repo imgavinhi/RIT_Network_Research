@@ -50,9 +50,25 @@ def main():
             write_to_csv(filename, byte_list, timestamp_list, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs)
 
         elif command == "C":
+            #display interfaces
             system("netstat -i")
 
-            interface = input("\nPlease specify an interface to capture on: ")
+            try:
+                interfaces_output = subprocess.check_output("ip -o link show| awk -F': ' '{print $2}'", shell=True, text=True)
+                available_interfaces = interfaces_output.strip().split("\n")
+            except subprocess.CalledProcessError:
+                print("Error: unable to retrieve network interfaces")
+                return
+
+            #validating user interface selection
+            while True:
+                interface = input("\nPlease specify an interface to capture on: ")
+                if interface in available_interfaces:
+                    break
+                else:
+                    print(f"Error: '{interface}' is not a valid interface. Please select from the available interfaces.")
+
+            #validate that user is specifying a txt file
             while True:
                 filename = input("Please specify a capture filename (must be txt file): ")
                 if filename.endswith(".txt"):
