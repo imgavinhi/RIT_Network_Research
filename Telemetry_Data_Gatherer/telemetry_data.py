@@ -29,7 +29,7 @@ def main():
 
         print("********TELEMETRY DATA GATHERING SCRIPT********\n")
         print("Please select one of the following options:")
-        print("\tP: Parse Capture Packet\n\tD: Create Dataset in CSV format\n\tC: Capture Packets\n\tS: View Capture Statistics\n\tM: Machine Learning Neural Network\n\tQ: Quit Program")
+        print("\tC: Capture Packets\n\tP: Parse Capture Packet\n\tD: Create Dataset in CSV format\n\tS: View Capture Statistics\n\tM: Machine Learning Neural Network\n\tQ: Quit Program")
         command = input("\nPlease select a choice: ")
         command = command.upper()
         if command == "P":
@@ -107,7 +107,17 @@ def main():
             capture_packets(interface, filename, packet_count)
 
         elif command == "S":
-            csv_file = input("Please specify CSV data file: ")
+             print("Datasets:")
+             system("ls data_sets/")
+
+             while True:
+                csv_file = input("Please specify CSV data file: ")
+                full_path = os.path.join("data_sets/", csv_file)
+
+                if os.path.isfile(full_path) and full_path.endswith(".csv"):
+                    break
+                else:
+                    print("Error: File must be '.csv' file and located in the '{data_sets}' directory")
             statistics(csv_file)
             input("Press Enter to Continue.")
         elif command == "M":
