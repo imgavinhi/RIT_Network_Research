@@ -56,6 +56,7 @@ def main():
         
             #have to change this so it is not stored in variables here, instead in a file that you read through to determine values
             packet_parser(file_location, byte_count)
+            input("Parsing complete. Press Enter to Continue...")
 
             #int_timestamps, dst_macs, src_macs, ether_types, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs = metadata_lists(byte_list, timestamp_list)
             #write_to_csv(byte_list, timestamp_list, dst_macs, src_macs, ether_types, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs)
@@ -75,6 +76,7 @@ def main():
             timestamp_list, byte_list = packet_metadata.make_lists(parsed_file)
             int_timestamps, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs = packet_metadata.metadata_lists(timestamp_list, byte_list)
             write_to_csv(filename, byte_list, timestamp_list, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs)
+            input("Dataset generated. Press Enter to Continue...")
 
         elif command == "C":
             #display interfaces
@@ -105,6 +107,7 @@ def main():
 
             packet_count = input("Please specify the amount of packets to capture: ")
             capture_packets(interface, filename, packet_count)
+            input("Capture Complete. Press Enter to Continue...")
 
         elif command == "S":
             print("Datasets:")
