@@ -33,9 +33,10 @@ def main():
         command = input("\nPlease select a choice: ")
         command = command.upper()
         if command == "P":
-            
+            print("Captures:")
+            system("ls captures/")
             while True:
-                file_location = input("Please specify the capture name (txt files located in captures/ only): ")
+                file_location = input("\nPlease specify the capture name (txt files located in captures/ only): ")
                 full_path = os.path.join("captures/", file_location)
 
                 if os.path.isfile(full_path) and full_path.endswith(".txt"):
@@ -59,9 +60,18 @@ def main():
             #int_timestamps, dst_macs, src_macs, ether_types, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs = metadata_lists(byte_list, timestamp_list)
             #write_to_csv(byte_list, timestamp_list, dst_macs, src_macs, ether_types, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs)
         elif command == "D":
-            filename = input("Please enter parsed text file name: ")
-            parsed_dir = "parsed_captures/"
-            parsed_file = os.path.join(parsed_dir, filename)
+            print("Parsed Captures:")
+            system("ls parsed_captures/")
+
+            while True:
+                filename = input("\nPlease enter parsed text file name: ")
+                parsed_dir = "parsed_captures/"
+                parsed_file = os.path.join(parsed_dir, filename)
+                if os.path.isfile(parsed_file) and parsed_file.endswith(".txt"):
+                    break
+                else:
+                    print("Error: File must be a '.txt' field located in the '{parsed_captures/}'directory")
+
             timestamp_list, byte_list = packet_metadata.make_lists(parsed_file)
             int_timestamps, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs = packet_metadata.metadata_lists(timestamp_list, byte_list)
             write_to_csv(filename, byte_list, timestamp_list, dst_macs, src_macs, ether_types, total_len, src_ips, dst_ips, pids, src_ports, dst_ports, time_deltas, epochs)
@@ -95,6 +105,7 @@ def main():
 
             packet_count = input("Please specify the amount of packets to capture: ")
             capture_packets(interface, filename, packet_count)
+
         elif command == "S":
             csv_file = input("Please specify CSV data file: ")
             statistics(csv_file)
