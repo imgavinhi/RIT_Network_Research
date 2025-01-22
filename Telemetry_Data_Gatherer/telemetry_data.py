@@ -107,22 +107,24 @@ def main():
             capture_packets(interface, filename, packet_count)
 
         elif command == "S":
-             print("Datasets:")
-             system("ls data_sets/")
+            print("Datasets:")
+            system("ls data_sets/")
 
-             while True:
-                csv_file = input("Please specify CSV data file: ")
+            while True:
+                csv_file = input("\nPlease specify CSV data file: ")
                 full_path = os.path.join("data_sets/", csv_file)
 
                 if os.path.isfile(full_path) and full_path.endswith(".csv"):
                     break
                 else:
                     print("Error: File must be '.csv' file and located in the '{data_sets}' directory")
+            
             statistics(csv_file)
-            input("Press Enter to Continue.")
+            input("\nPress Enter to Continue.")
+
         elif command == "M":
             model_main()
-            input("Press Enter to Continue...")
+            input("\nPress Enter to Continue...")
         elif command == "Q":
             print("Quitting Telemtry Data Gathering Script...")
             run = False
