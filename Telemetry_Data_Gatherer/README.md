@@ -18,9 +18,15 @@ Generates data csv with parsed and meta data information.
 | statistics.py |
 Generates summary statistics for parsed data packets including number of packets, packet distribution, average packet length, max packet length, and min packet length.
 
-| feature_construction.py |
-
 | packet_labeler.py |
+Classifies packets by a traffic class integer for feature construction. Current labels ARP traffic at layer 2 and ICMPv4 traffic at layer 3. 
+
+1 - ARP Request
+2 - ARP Reply
+3 - ICMP Request
+4 - ICMP Reply (currently has issues identifying)
+
+|feature_construction.py|
 
 | gen_net_model_mlp.py |
 

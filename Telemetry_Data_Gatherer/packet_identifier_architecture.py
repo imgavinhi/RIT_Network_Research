@@ -20,13 +20,13 @@ It then determines the number of features to create x and y matrices
 '''
 def file_loader(x_train_file, y_train_file, classes):
     numpy_x_train = np.load(x_train_file)
-    numpy_x_train = np.transpose(numpy_x_train) #transpose = DEFINE
+    numpy_x_train = np.transpose(numpy_x_train) #transpose = reverses dimensions of an array. Goes fom (x,y) to (y,x)
     x_train = torch.from_numpy(numpy_x_train).float()
     
     numpy_y_train = np.load(y_train_file)
     #numpy_y_train = transpose(numpy_y_train)
     y_train = torch.from_numpy(numpy_y_train)
-    y_labels = torch.zeros(x_train.shape[0], classes) #DEFINE
+    y_labels = torch.zeros(x_train.shape[0], classes)
 
     feature_count = x_train[1]
 
@@ -43,6 +43,7 @@ def model_main():
     numpy_dir = "numpy_files/"
     conv_dir = "datasets_conv/" #this directory is for...
 
+    #change these for tuning
     features = 84
     iterations = 501
     alpha = 1e-6
@@ -61,7 +62,6 @@ def model_main():
     #builds necessary file list
     for i in range(0, num_data_files):
         #standardize capture, parsed, and csv names
-        #filename = os.path.join(capture_dir, "w_dataset"+str(i)+".txt")
         filename = os.path.join("w_dataset"+str(i)+".txt")
         dataset_files.append(filename)
 
@@ -74,7 +74,7 @@ def model_main():
         y_file= os.path.join(numpy_dir, "w_dataset"+str(i)+"_labels.npy")
         y_files.append(y_file)
 
-    #preproccess_main() in feature construction
+    #preproccess_main() in feature_construction.py
     print("Completing Preprocessing...")
     print("Dataset Files: ", len(dataset_files),"\nCleaned Files: ", len(cleaned_files), "\nx_files: ", len(x_files), "\ny_files: ", y_files)
     preprocessor_main(features, dataset_files, cleaned_files, x_files, y_files)
@@ -88,6 +88,7 @@ def model_main():
 
         print("\nCalling MLP Model...\n")
 
+        #from gen_net_mlp.py
         gen_net_mlp_main(x_train, y_labels, x_files, y_files, feature_count, iterations, hidden_nodes, classes, alpha, batch_size)
 
 if __name__ == "__main__":
