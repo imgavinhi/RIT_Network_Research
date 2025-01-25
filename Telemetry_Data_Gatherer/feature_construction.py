@@ -115,6 +115,7 @@ def fields_and_labels(x_output_file, y):
                 packet, traffic_class_int, arp_request_ctr, arp_reply_ctr = arp_labeler(x_line_data, arp_request_ctr, arp_reply_ctr)
 
             traffic_class_int = str(traffic_class_int)
+            #print(traffic_class_int) is it seeing the traffic class for reply (YES)
             y[ctr] = traffic_class_int
             ctr += 1
 

@@ -8,27 +8,34 @@ def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
     traffic_class_int = 0
     packet = "No Match"
     l3_pid = x_line_data[46:48]
+    l3_type = x_line_data[24:28]
+    
+    '''
+    tesing to make sure ICMP Echo request are properly parsed (they are)
+    print(x_line_data)
+    print(l3_pid)
+    input("stop")
+    '''
 
-    #01 for ICMP, 11 for UDP, 06 for TCP, 02 for IGMP
+    #PID: 01 for ICMP, 11 for UDP, 06 for TCP, 02 for IGMP
 
-    if l3_pid == '01':
-        icmp_type_code = x_line_data[68:70] #was 68:72 to get icmp type and code
-        #print(icmp_type_code)
-        #input("stop to debug")
+    if l3_type == '0800':
+        l3_pid = x_line_data[46:48]
+        if l3_pid == '01':
+            icmp_type_code = x_line_data[68:72] #was 68:72 to get icmp type and code
         
-        #request type/code = 0800
-        #reply type/code = 0000
-        if icmp_type_code == '08': #was 0800
-            packet = 'IPv4 ICMP Request'
-            traffic_class_int = 3
-            icmp_request_ctr = icmp_request_ctr+1
-        elif icmp_type_code == '00': #was #0000
-            packet = 'IPv4 ICMP Reply'
-            traffic_class_int = 4
-            icmp_reply_ctr = icmp_reply_ctr+1
-
-            print("Req: ", icmp_request_ctr, " Rep: ", icmp_reply_ctr)
-
+            #request type/code = 0800
+            #reply type/code = 0000
+            if icmp_type_code == '0800':
+                packet = 'IPv4 ICMP Request'
+                traffic_class_int = 3
+                icmp_request_ctr = icmp_request_ctr+1
+            elif icmp_type_code == '0000':
+                packet = 'IPv4 ICMP Reply'
+                traffic_class_int = 4
+                icmp_reply_ctr = icmp_reply_ctr+1
+        #print("Req: ", icmp_request_ctr, " Rep: ", icmp_reply_ctr) tesing
+        #print(traffic_class_int)
     return packet, traffic_class_int, icmp_request_ctr, icmp_reply_ctr
 
 #this function defines labels for ARP packets

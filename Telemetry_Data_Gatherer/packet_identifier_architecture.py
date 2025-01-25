@@ -44,7 +44,7 @@ def model_main():
     conv_dir = "datasets_conv/" #this directory is for...
 
     #change these for tuning
-    features = 84
+    features = 84 #84 because packet_parser.py multiplies by 2 to get bytes
     iterations = 501
     alpha = 1e-6
     hidden_nodes = 32

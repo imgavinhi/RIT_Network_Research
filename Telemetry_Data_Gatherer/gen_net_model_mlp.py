@@ -11,8 +11,6 @@ from predictions import *
 #defines the main operations for the machine learning neaural network
 def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count, iterations, hidden_nodes, classes, alpha, batch_size):
     d_in = feature_count
-#    print(d_in) FOR DEBUGGIN
-#    print(type(d_in))
     h2 = hidden_nodes
     h1 = hidden_nodes *2
 
@@ -51,6 +49,7 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
     tick = datetime.now()
 
     loss_function = torch.nn.MSELoss(reduction = 'sum')
+    #loss_function = torch.nn.CrossEntropyLoss()
     optimizer = optimizer_pick(1, net_model, alpha)
 
     epoch_count = 0
