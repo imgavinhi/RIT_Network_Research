@@ -15,6 +15,7 @@ def packet_choice(predictions):
     prediction_counter_list = []
 
     for i in predictions:
+        print(i)
         if i == 1:
             #arp req
             packet_type = "ARP"
@@ -41,6 +42,9 @@ def packet_choice(predictions):
             packet_type = "Other"
             no_match_counter += 1
 
+        #for debugging:
+        print("Class: ", packet_class)
+        print("Type: ", packet_type)
         packet_counter += 1
         packet_class = []
         packet_type = ""

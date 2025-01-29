@@ -120,7 +120,7 @@ def fields_and_labels(x_output_file, y):
             ctr += 1
 
             packet, x_line_data = "", ""
-    print(y)
+    #print(y)
     return y
 
 '''
