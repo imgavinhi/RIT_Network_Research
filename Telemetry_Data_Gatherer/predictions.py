@@ -1,4 +1,6 @@
 def packet_choice(predictions):
+    ts_list = [] #for troubleshooting
+
     packet_class = []
     packet_type = "No Match"
     packet_counter = 0
@@ -15,26 +17,26 @@ def packet_choice(predictions):
     prediction_counter_list = []
 
     for i in predictions:
-        print(i)
+       #print(i)
         if i == 1:
             #arp req
-            packet_type = "ARP"
+            packet_type = "ARP Request"
             arp_req_counter += 1
 
         elif i == 2:
             #arp rep
-            packet_type = "ARP"
+            packet_type = "ARP Reply"
             arp_rep_counter += 1
 
         elif i == 3:
             #icmp req
-            packet_type = "ICMP"
+            packet_type = "ICMP Request"
             icmp_req_counter += 1
             ipv4_counter += 1
 
         elif i == 4:
             #icmp rep
-            packet_type = "ICMP"
+            packet_type = "ICMP Reply"
             icmp_rep_counter += 1
             ipv4_counter += 1
         
@@ -43,11 +45,15 @@ def packet_choice(predictions):
             no_match_counter += 1
 
         #for debugging:
-        print("Class: ", packet_class)
-        print("Type: ", packet_type)
+        ts_list.append(packet_type)
+
         packet_counter += 1
         packet_class = []
         packet_type = ""
+    
+    print("\nPrediction values:\n", predictions[:20])
+
+    print("\nPacket_type list:\n", ts_list[:20])
 
     print("Total Packets:\t", packet_counter)
     print("IPv4 Packets:\t", ipv4_counter)
