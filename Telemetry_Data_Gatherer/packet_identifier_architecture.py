@@ -46,7 +46,7 @@ def model_main():
     #change these for tuning
     features = 84 #84 because packet_parser.py multiplies by 2 to get bytes
     iterations = 501
-    alpha = 1e-6
+    alpha = 1e-5
     hidden_nodes = 32
     classes = 4
     batch_size = 128

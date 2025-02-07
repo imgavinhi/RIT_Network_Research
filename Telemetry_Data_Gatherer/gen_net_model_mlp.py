@@ -110,6 +110,7 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
         
         predicted_numpy = predicted.numpy()
         packet_choice(predicted_numpy)
+        #print(predicted_numpy[:20]) DEBUGGING
         accuracy(predicted_numpy, y_test)
 
 def accuracy(predictions, y_test):

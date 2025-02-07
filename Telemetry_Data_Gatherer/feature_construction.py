@@ -119,11 +119,15 @@ def fields_and_labels(x_output_file, y):
             y[ctr] = traffic_class_int
             ctr += 1
 
+            '''debugging
+            if ctr%11 == 0:
+                print(traffic_class_int)'''
+
             packet, x_line_data = "", ""
     
     #troubleshooting y
-    print("The following is what Y consists of:", y[:20])
-
+    #print("The following is what Y consists of:", y[:20])
+    print("THIS IS A TEST, IGNORE ME!!!\n","ARP: REQ", arp_request_ctr, "ARP: REP", arp_reply_ctr, "ICMP: REQ", icmp_request_ctr, "ICMP: REP", icmp_reply_ctr)
     return y
 
 '''
