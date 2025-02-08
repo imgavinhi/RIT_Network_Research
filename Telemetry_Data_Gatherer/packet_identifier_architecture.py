@@ -79,7 +79,7 @@ def model_main():
     print("Dataset Files: ", len(dataset_files),"\nCleaned Files: ", len(cleaned_files), "\nx_files: ", len(x_files), "\ny_files: ", y_files)
     preprocessor_main(features, dataset_files, cleaned_files, x_files, y_files)
     
-    for i in range(0,2):
+    for i in range(0,3):
         print("\nTraining File Loader With:\n")
         print(x_train_file)
         print(y_train_file)
