@@ -2,13 +2,17 @@
 This file will provide labels based on the l2_type of the ipv4 packet
 '''
 
-#this function defines labels for IPv4 packets. So far it only does ICMP Echo Requests and Echo Replies
-#utilizes traffic class ints of 3 and 4
+'''
+this function defines labels for IPv4 packets. So far it only does ICMP Echo Requests and Echo Replies
+utilizes traffic class ints of 3 (icmp requests) and 4 (icmp replies)
+utilizes traffic class ints of 5 (tls) and 6 (http) - TCP header with other identifiers
+utilizes traff ints of 7 (dns) and 8 (quic) - UDP header with other identifiers
+'''
 def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
 #    traffic_class_int = 0
     packet = "No Match"
     l3_pid = x_line_data[46:48]
-    l3_type = x_line_data[24:28]
+    l3_type = x_line_data[24:28] #located in the ethernet header specifies IPv4
     
     '''
     tesing to make sure ICMP Echo request are properly parsed (they are)
@@ -21,8 +25,10 @@ def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
 
     if l3_type == '0800':
         l3_pid = x_line_data[46:48]
-        if l3_pid == '01':
-            icmp_type_code = x_line_data[68:72] #was 68:72 to get icmp type and code
+        src_port = x_line_data[:]
+        dst_port = x_line_data[:]
+        if l3_pid == '01': #ICMP l3 pid
+            icmp_type_code = x_line_data[68:72]
         
             #request type/code = 0800
             #reply type/code = 0000
@@ -36,6 +42,15 @@ def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
                 icmp_reply_ctr = icmp_reply_ctr+1
         #print("Req: ", icmp_request_ctr, " Rep: ", icmp_reply_ctr) tesing
         #print(traffic_class_int)
+
+        elif l3_pid == '': #TCP l3 pid
+            #http and tls
+            pass
+
+        elif l3_pid == '11': #UDP l3 pid
+            #dns (port 53) and quic (ports 80 and 443)
+            pass
+
     return packet, traffic_class_int, icmp_request_ctr, icmp_reply_ctr
 
 #this function defines labels for ARP packets
