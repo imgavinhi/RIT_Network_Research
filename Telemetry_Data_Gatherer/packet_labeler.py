@@ -25,8 +25,9 @@ def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
 
     if l3_type == '0800':
         l3_pid = x_line_data[46:48]
-        src_port = x_line_data[:]
-        dst_port = x_line_data[:]
+        src_port = x_line_data[68:72]
+        dst_port = x_line_data[72:76]
+
         if l3_pid == '01': #ICMP l3 pid
             icmp_type_code = x_line_data[68:72]
         
@@ -43,15 +44,29 @@ def ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr):
         #print("Req: ", icmp_request_ctr, " Rep: ", icmp_reply_ctr) tesing
         #print(traffic_class_int)
 
-        elif l3_pid == '': #TCP l3 pid
-            #http and tls
-            pass
+        elif l3_pid == '02': #TCP l3 pid
+            #http (port 80 = 0050) and tls (port 443 == 01bb)
+            if src_port == "0500" or dst_port == "0050":
+                packet = "IPv4 TCP HTTP"
+                traffic_int_class = 6
+                #increae http counters when implemented
+            elif src_port == "01bb" or dst_port == "01bb":
+                packet = "IPv4 TCP TLS"
+                traffic_int_class = 5
+                #increase tls counters when implemented
 
         elif l3_pid == '11': #UDP l3 pid
-            #dns (port 53) and quic (ports 80 and 443)
-            pass
+            #dns (port 53 = 0035) and quic (ports 80 == 0050 and 443 == 01bb)
+            if src_port == "0035" or dst_port == "0035":
+                packet = "IPv4 UDP DNS"
+                traffic_class_int = 7
+                #increase dns counter once implemented
+            elif src_port == "0050" or src_port == "01bb" or dst_port == "0050" or dst_port == "01bb":
+                packet = "IPv4 UDP QUIC"
+                traffic_class_int = 8
+                #increase quic counter once implemented
 
-    return packet, traffic_class_int, icmp_request_ctr, icmp_reply_ctr
+    return packet, traffic_class_int, icmp_request_ctr, icmp_reply_ctr #return additional counters when implemented
 
 #this function defines labels for ARP packets
 #utilizes traffic class ints of 1 and 2
