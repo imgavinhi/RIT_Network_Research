@@ -44,8 +44,8 @@ def model_main():
     conv_dir = "datasets_conv/" #this directory is for...
 
     #change these for tuning
-    features = 84 #84 because packet_parser.py multiplies by 2 to get bytes
-    iterations = 501
+    features = 84 #packet_parser.py multiplies by 2 to get bytes
+    iterations = 601
     alpha = 1e-5
     hidden_nodes = 32
     classes = 4
@@ -79,7 +79,7 @@ def model_main():
     print("Dataset Files: ", len(dataset_files),"\nCleaned Files: ", len(cleaned_files), "\nx_files: ", len(x_files), "\ny_files: ", y_files)
     preprocessor_main(features, dataset_files, cleaned_files, x_files, y_files)
     
-    for i in range(0,3):
+    for i in range(0,1):
         print("\nTraining File Loader With:\n")
         print(x_train_file)
         print(y_train_file)
