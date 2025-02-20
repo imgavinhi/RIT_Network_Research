@@ -103,16 +103,8 @@ def fields_and_labels(x_output_file, y):
                 continue
             x_line_data = line
             
-            l2_type = x_line_data[24:28]
 
-            #print("l2_type", l2_type)
-
-            #ipv4
-            if l2_type == '0800':
-                packet, traffic_class_int, icmp_request_ctr, icmp_reply_ctr = ipv4_types(x_line_data, icmp_request_ctr, icmp_reply_ctr)
-            #arp
-            if l2_type == "0806":
-                packet, traffic_class_int, arp_request_ctr, arp_reply_ctr = arp_labeler(x_line_data, arp_request_ctr, arp_reply_ctr)
+            packet, traffic_class_int, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr = packet_types(x_line_data, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr)
 
             traffic_class_int = str(traffic_class_int)
             #print(traffic_class_int) is it seeing the traffic class for reply (YES)

@@ -42,7 +42,7 @@ def packet_choice(predictions):
             ipv4_counter += 1
         
         else:
-            packet_type = "Other"
+            packet_type = "No Match"
             no_match_counter += 1
 
         #for debugging:
