@@ -1,7 +1,7 @@
 //Allow only LAN traffic from 192.168.47.0-.255
 acl LAN{
-192.168.47.0/24
-}
+192.168.47.0/24;
+};
 
 options {
 	directory "/var/cache/bind";
