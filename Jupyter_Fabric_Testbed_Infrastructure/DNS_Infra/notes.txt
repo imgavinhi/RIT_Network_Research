@@ -1,0 +1,10 @@
+References: https://www.cherryservers.com/blog/how-to-install-and-configure-a-private-bind-dns-server-on-ubuntu-22-04
+
+Server File Locations:
+  /etc/bind/named.conf.options
+  /etc/bind/named.conf.local
+  /etc/bind/zones/research.net
+  /etc/bind/zones/research.net.rev
+
+Client File Locations:
+  /etc/resolv.conf
