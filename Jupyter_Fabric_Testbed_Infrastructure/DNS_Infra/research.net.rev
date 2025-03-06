@@ -1,15 +1,19 @@
 ;
-; BIND reverse data file for local loopback interface
+; BIND Reverse Lookup Zone for 192.168.47.0/24
 ;
-$TTL	604800
-@	IN	SOA	research.net. root.research.net. (
-			      1		; Serial
-			 604800		; Refresh
-			  86400		; Retry
-			2419200		; Expire
-			 604800 )	; Negative Cache TTL
-; Name server record
+$TTL 604800
+@   IN  SOA  research.net. root.research.net. (
+           2     ; Serial (Increment this!)
+      604800     ; Refresh
+       86400     ; Retry
+     2419200     ; Expire
+      604800 )   ; Negative Cache TTL
+
+; Name Server for Reverse Zone
 @	IN	NS	ntp-client.research.net.
 ntp-client	IN	A	192.168.47.101
-2	IN	PTR	ntp-client.research.net
-3	IN	PTR	ntp-make.research.net
+ntp-make	IN	A	192.168.47.50
+
+; PTR Records (Reverse Mappings)
+101	IN	PTR	ntp-client.research.net.
+50	IN	PTR	ntp-make.research.net.
