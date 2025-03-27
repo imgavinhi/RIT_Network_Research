@@ -95,6 +95,10 @@ def fields_and_labels(x_output_file, y):
     arp_request_ctr = 0
     arp_reply_ctr = 0
     ctr = 0
+    http_ctr = 0
+    tls_ctr = 0
+    dns_ctr = 0
+    quic_ctr = 0
 
     with open(x_output_file) as traffic:
         for line in traffic:
@@ -104,7 +108,7 @@ def fields_and_labels(x_output_file, y):
             x_line_data = line
             
 
-            packet, traffic_class_int, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr = packet_types(x_line_data, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr)
+            packet, traffic_class_int, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr, http_ctr, tls_ctr, dns_ctr, quic_ctr = packet_types(x_line_data, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr, http_ctr, tls_ctr, dns_ctr, quic_ctr)
 
             traffic_class_int = str(traffic_class_int)
             #print(traffic_class_int) is it seeing the traffic class for reply (YES)
@@ -119,7 +123,7 @@ def fields_and_labels(x_output_file, y):
     
     #troubleshooting y
     #print("The following is what Y consists of:", y[:20])
-    print("THIS IS A TEST, IGNORE ME!!!\n","ARP: REQ", arp_request_ctr, "ARP: REP", arp_reply_ctr, "ICMP: REQ", icmp_request_ctr, "ICMP: REP", icmp_reply_ctr)
+    print("THIS IS A TEST, IGNORE ME!!!\n","ARP: REQ", arp_request_ctr, "ARP: REP", arp_reply_ctr, "ICMP: REQ", icmp_request_ctr, "ICMP: REP", icmp_reply_ctr, "HTTP", http_ctr, "TLS", tls_ctr, "DNS", dns_ctr, "QUIC", quic_ctr)
     return y
 
 '''

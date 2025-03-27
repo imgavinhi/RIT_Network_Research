@@ -5,7 +5,7 @@ utilizes traffic class ints of 3 (icmp requests) and 4 (icmp replies)
 utilizes traffic class ints of 5 (tls) and 6 (http) - TCP header with other identifiers
 utilizes traff ints of 7 (dns) and 8 (quic) - UDP header with other identifiers
 '''
-def packet_types(x_line_data, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr):
+def packet_types(x_line_data, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr, http_ctr, tls_ctr, dns_ctr, quic_ctr):
     packet = "No Match"
     l2_type = x_line_data[24:28]
 
@@ -61,10 +61,12 @@ def packet_types(x_line_data, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, 
                 if src_port == "0500" or dst_port == "0050":
                     packet = "IPv4 TCP HTTP"
                     traffic_int_class = 6
-                    #increae http counters when implemented
+                    #increase http counters when implemented
+                    http_ctr += 1
                 elif src_port == "01bb" or dst_port == "01bb":
                     packet = "IPv4 TCP TLS"
                     traffic_int_class = 5
+                    tls_ctr += 1
                     #increase tls counters when implemented
 
             elif l3_pid == '11': #UDP l3 pid
@@ -72,10 +74,12 @@ def packet_types(x_line_data, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, 
                 if src_port == "0035" or dst_port == "0035":
                     packet = "IPv4 UDP DNS"
                     traffic_class_int = 7
+                    dns_ctr += 1
                     #increase dns counter once implemented
                 elif src_port == "0050" or src_port == "01bb" or dst_port == "0050" or dst_port == "01bb":
                     packet = "IPv4 UDP QUIC"
                     traffic_class_int = 8
+                    quic_ctr += 1
                     #increase quic counter once implemented
 
-    return packet, traffic_class_int, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr #return additional counters when implemented
+    return packet, traffic_class_int, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr, http_ctr, tls_ctr, dns_ctr, quic_ctr #return additional counters when implemented

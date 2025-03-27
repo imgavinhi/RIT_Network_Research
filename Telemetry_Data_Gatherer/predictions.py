@@ -11,6 +11,10 @@ def packet_choice(predictions):
     ipv4_counter = 0
     icmp_req_counter = 0
     icmp_rep_counter = 0
+    http_counter = 0
+    tls_counter = 0
+    dns_counter = 0
+    quic_counter = 0
 
     no_match_counter = 0
 
@@ -41,6 +45,27 @@ def packet_choice(predictions):
             icmp_rep_counter += 1
             ipv4_counter += 1
         
+        elif i == 4:
+            #http
+            packet_type = "HTTP"
+            http_counter += 1
+            ipv4_counter += 1
+
+        elif i == 5:
+            packet_type = "TLS"
+            tls_counter += 1
+            ipv4_counter += 1
+
+        elif i == 6:
+            packet_type = "DNS"
+            dns_counter += 1
+            ipv4_counter += 1
+
+        elif i == 7:
+            packet_type = "QUIC"
+            quic_counter += 1
+            ipv4_counter += 1
+
         else:
             packet_type = "No Match"
             no_match_counter += 1
@@ -58,8 +83,12 @@ def packet_choice(predictions):
 
     print("Total Packets:\t", packet_counter)
     print("IPv4 Packets:\t", ipv4_counter)
-    print("0-Other:\t", no_match_counter)
-    print("1-ARP Request:\t", arp_req_counter)
-    print("2-ARP Reply:\t", arp_rep_counter)
-    print("3-ICMP Request:\t", icmp_req_counter)
-    print("4-ICMP Reply:\t", icmp_rep_counter)
+    print("#-Other:\t", no_match_counter)
+    print("0-ARP Request:\t", arp_req_counter)
+    print("1-ARP Reply:\t", arp_rep_counter)
+    print("2-ICMP Request:\t", icmp_req_counter)
+    print("3-ICMP Reply:\t", icmp_rep_counter)
+    print("4-HTTP:\t", http_counter)
+    print("5-TLS:\t", tls_counter)
+    print("6-DNS:\t", dns_counter)
+    print("7-QUIC:\t", quic_counter)
