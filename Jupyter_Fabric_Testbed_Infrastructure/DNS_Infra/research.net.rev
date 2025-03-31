@@ -10,10 +10,10 @@ $TTL 604800
       604800 )   ; Negative Cache TTL
 
 ; Name Server for Reverse Zone
-@	IN	NS	ntp-client.research.net.
-ntp-client	IN	A	192.168.47.101
-ntp-make	IN	A	192.168.47.50
+@	IN	NS	ntp-make.research.net.
+ntp-make	IN	A	192.168.47.101
+ntp-client	IN	A	192.168.47.50
 
 ; PTR Records (Reverse Mappings)
-101	IN	PTR	ntp-client.research.net.
-50	IN	PTR	ntp-make.research.net.
+50	IN	PTR	ntp-client.research.net.
+101	IN	PTR	ntp-make.research.net.
