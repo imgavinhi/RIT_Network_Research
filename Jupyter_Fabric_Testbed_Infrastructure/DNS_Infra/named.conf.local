@@ -1,6 +1,7 @@
 zone "research.net" IN {
         type master;
         file "/etc/bind/zones/research.net";
+	allow-update { localhost; };
 };
 zone "47.168.192.in-addr.arpa" IN {
         type master;
