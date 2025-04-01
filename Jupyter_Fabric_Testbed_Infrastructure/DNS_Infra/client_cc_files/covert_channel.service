@@ -1,0 +1,16 @@
+#stored in etc/systemd/system/
+[Unit]
+Description=Covert Channel Python Script
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/covert_channel/covert_execution.py
+WorkingDirectory=/opt/covert_channel
+StandardOutput=journal
+StandardError=journal
+Restart=always
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
