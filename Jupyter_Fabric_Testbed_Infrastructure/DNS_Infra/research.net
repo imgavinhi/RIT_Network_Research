@@ -15,10 +15,10 @@ covertmessage.research.net.    IN    TXT   "ZWNobyAiVEhFIENPVkVSVCBDSEFOTkVMIElT
 
 
 ; A record for the name server
-ntp-make	IN	A	192.168.47.101
-ntp-make	IN	AAAA	::1
-ntp-make	IN	TXT	"I am the BIND9 Server"
+dns-serv	IN	A	192.168.47.101
+dns-serv	IN	AAAA	::1
+dns-serv	IN	TXT	"I am the BIND9 Server"
 
 ; A record for the clients
-ntp-client	IN	A	192.168.47.50
-ntp-client	IN	TXT	"I am the BIND9 Client"
+dns-client	IN	A	192.168.47.50
+dns-client	IN	TXT	"I am the BIND9 Client"
