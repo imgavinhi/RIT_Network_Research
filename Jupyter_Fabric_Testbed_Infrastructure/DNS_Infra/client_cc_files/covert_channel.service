@@ -2,8 +2,8 @@
 [Unit]
 Description=Covert Channel Python Script
 After=network.target
-StartLimitBurst=10
-StartLimitIntervalSec=60
+StartLimitBurst=20
+StartLimitIntervalSec=30
 
 [Service]
 ExecStart=/usr/bin/python3 /opt/covert_channel/covert_execution.py
