@@ -11,7 +11,7 @@ $TTL	604800
 ; Name server record
 @	IN	NS	ntp-make.research.net.
 research.net.	IN	TXT	"Testing"
-covertmessage.research.net.    IN    TXT   "ZWNobyAiVEhFIENPVkVSVCBDSEFOTkVMIElTIENPVkVSVCBDSEFOTkVMSU5HIiA+IGZpbmRtZS50eHQ="; "Some secret message" encoded in base64
+covertmessage.research.net.    IN    TXT   "aG9zdCBnb29nbGUuY29t"; "Some secret message" encoded in base64/ its host google.com to generate more dns traffic
 
 
 ; A record for the name server
