@@ -2,6 +2,8 @@
 [Unit]
 Description=Covert Channel Python Script
 After=network.target
+StartLimitBurst=10
+StartLimitIntervalSec=600
 
 [Service]
 ExecStart=/usr/bin/python3 /opt/covert_channel/covert_execution.py
@@ -9,6 +11,7 @@ WorkingDirectory=/opt/covert_channel
 StandardOutput=journal
 StandardError=journal
 Restart=always
+RestartSec=5s
 User=root
 Group=root
 
