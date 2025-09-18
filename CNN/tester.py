@@ -28,8 +28,8 @@ print(x[0, 0, :, :])
 print("-" * 20)
 
 # --- Step 3: Test normalization ---
-print("Testing mean_normalization_4d...")
-x_normalized = mean_normalization_4d(x)
+print("Testing mean_normalization...")
+x_normalized = mean_normalization(x)
 print(f"Normalized x array shape: {x_normalized.shape}")
 print("First packet data (after normalization):")
 print(x_normalized[0, 0, :, :])
