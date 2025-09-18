@@ -77,7 +77,7 @@ def numpy_x_y(x_rows, x_cols, x_output_file, y_rows, y_cols, packet_height, pack
  Performs mean normalization and standard deviation scaling on a 4D array.
 '''
 def mean_normalization(x):
-     x_mean = np.mean(x)
+    x_mean = np.mean(x)
     x_std = np.std(x)
     x_normalized = (x - x_mean) / x_std
     return x_normalized
