@@ -134,9 +134,9 @@ def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_fil
     x_cols = features
     
     # Define the packet image dimensions. You'll need to choose values that multiply to 'features'.
-    # Example: if features = 784, use 28 and 28.
-    packet_height = 28
-    packet_width = 28
+    # Example: if features = 128, use 8 and 16.
+    packet_height = 8
+    packet_width = 16
 
     for i in range(len(dataset_file_list)):
         x_outfile = dataset_file_list[i]
