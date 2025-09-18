@@ -2,7 +2,7 @@ import numpy as np
 from feature_construction import num_rows, numpy_x_y, mean_normalization, fields_and_labels
 
 # --- Configuration ---
-features = 16 
+features = 16 #variables or all of our x's
 
 packet_height = 4
 packet_width = 4
