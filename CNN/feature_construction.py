@@ -127,16 +127,16 @@ def fields_and_labels(x_output_file, y):
 '''
 This preprocessor parses captures and then utilizes other functions within this file to construct numpy files based on the features and labels captured 
 '''
-def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_file_list, y_test_file_list):
+def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_file_list, y_test_file_list, packet_height, packet_width):
+    """
+    This preprocessor parses captures and then utilizes other functions within this file to construct numpy files based on the features and labels captured.
+    """
     x_row = 0
     y_row = 0
     y_cols = 1
     x_cols = features
     
-    # Define the packet image dimensions. You'll need to choose values that multiply to 'features'.
-    # Example: if features = 128, use 8 and 16.
-    packet_height = 8
-    packet_width = 16
+    # The packet_height and packet_width are now taken as arguments
 
     for i in range(len(dataset_file_list)):
         x_outfile = dataset_file_list[i]
@@ -150,7 +150,7 @@ def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_fil
 
         x_rows, y_rows = num_rows(x_source_file)
 
-        # The updated function call now includes the new dimensions
+        # The function call now includes the new dimensions
         x, y = numpy_x_y(x_rows, x_cols, x_source_file, y_rows, y_cols, packet_height, packet_width)
 
         x_normalized = mean_normalization(x, features)
