@@ -68,8 +68,8 @@ def gen_net_cnn_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
     loss_array = torch.zeros(epochs, 1)
     tick = datetime.now()
 
-    loss_function = torch.nn.MSELoss(reduction = 'sum')
-    #loss_function = torch.nn.CrossEntropyLoss()
+    #loss_function = torch.nn.MSELoss(reduction = 'sum')
+    loss_function = torch.nn.CrossEntropyLoss()
     optimizer = optimizer_pick(1, net_model, alpha)
 
     epoch_count = 0
@@ -82,7 +82,7 @@ def gen_net_cnn_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
 
             y_pred = net_model((inputs).float())
 
-            loss = loss_function(y_pred, targets.float())
+            loss = loss_function(y_pred, targets)
             time = str(datetime.now())
             optimizer.zero_grad()
             loss.backward()
