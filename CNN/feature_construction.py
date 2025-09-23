@@ -153,7 +153,7 @@ def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_fil
         # The function call now includes the new dimensions
         x, y = numpy_x_y(x_rows, x_cols, x_source_file, y_rows, y_cols, packet_height, packet_width)
 
-        x_normalized = mean_normalization(x, features)
+        x_normalized = mean_normalization(x)
 
         y = fields_and_labels(x_source_file, y)
 
