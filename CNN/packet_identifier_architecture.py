@@ -33,7 +33,7 @@ def model_main():
     hidden_nodes = 32
     classes = 4
     batch_size = 128
-    num_data_files = 4
+    num_data_files = 1
 
     x_files, y_files, dataset_files, cleaned_files = [], [], [], []
 
@@ -59,11 +59,17 @@ def model_main():
     # --- UPDATED: The call to preprocessor_main now includes new arguments ---
     preprocessor_main(features, dataset_files, cleaned_files, x_files, y_files, packet_height, packet_width)
     
-    # The file_loader() function is no longer needed as data is loaded directly in gen_net_cnn_main
+    # --- NEW: Load the training data before calling the model function ---
+    x_train_numpy = np.load(x_files[0])
+    y_labels_numpy = np.load(y_files[0])
+    
+    x_train = torch.from_numpy(x_train_numpy).float()
+    y_labels = torch.from_numpy(y_labels_numpy).long().flatten()
+
     print("\nTraining CNN Model...\n")
     
-    # --- UPDATED: The call to gen_net_mlp_main is replaced with gen_net_cnn_main ---
-    gen_net_cnn_main(x_files, y_files, features, iterations, hidden_nodes, classes, alpha, batch_size)
+    # --- UPDATED: The call to gen_net_cnn_main now includes all 10 arguments ---
+    gen_net_cnn_main(x_train, y_labels, x_files, y_files, features, iterations, hidden_nodes, classes, alpha, batch_size)
 
 if __name__ == "__main__":
     model_main()
