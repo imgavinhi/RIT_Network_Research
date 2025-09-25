@@ -22,46 +22,46 @@ def packet_choice(predictions):
 
     for i in predictions:
        #print(i)
-        if i == 0:
+        if i == 1:
             #arp req
             packet_type = "ARP Request"
             arp_req_counter += 1
 
-        elif i == 1:
+        elif i == 2:
             #arp rep
             packet_type = "ARP Reply"
             arp_rep_counter += 1
 
-        elif i == 2:
+        elif i == 3:
             #icmp req
             packet_type = "ICMP Request"
             icmp_req_counter += 1
             ipv4_counter += 1
 
-        elif i == 3:
+        elif i == 4:
             #print("HERE!!")
             #icmp rep
             packet_type = "ICMP Reply"
             icmp_rep_counter += 1
             ipv4_counter += 1
         
-        elif i == 4:
+        elif i == 5:
             #http
             packet_type = "HTTP"
             http_counter += 1
             ipv4_counter += 1
 
-        elif i == 5:
+        elif i == 6:
             packet_type = "TLS"
             tls_counter += 1
             ipv4_counter += 1
 
-        elif i == 6:
+        elif i == 7:
             packet_type = "DNS"
             dns_counter += 1
             ipv4_counter += 1
 
-        elif i == 7:
+        elif i == 8:
             packet_type = "QUIC"
             quic_counter += 1
             ipv4_counter += 1
