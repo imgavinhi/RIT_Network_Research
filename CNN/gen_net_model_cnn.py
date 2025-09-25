@@ -29,11 +29,11 @@ def gen_net_cnn_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
 
     max_tier = 20
     train = data_utils.TensorDataset(x_train, y_labels)
-    train_loader = data_utils.DataLoader(train, batch_size=batch_size, shuffle=False)
+    train_loader = data_utils.DataLoader(train, batch_size=batch_size, shuffle=False, num_workers=0)
 
     # --- Replaced MLP with CNN Architecture ---
     net_model = torch.nn.Sequential(
-        # First convolutional layer: expects a 4D input of (batch, 1, 8, 16)
+        # First convolutional layer: expects a 4D input of (batch, 1, 14, 14)
         nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1),
         nn.ReLU(),
         nn.MaxPool2d(kernel_size=2),
@@ -47,7 +47,7 @@ def gen_net_cnn_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
         nn.Flatten(),
 
         # Linear layer with the new flattened input size (64 channels * 2 * 4)
-        nn.Linear(64 * 2 * 4, h2),
+        nn.Linear(64 * 3 * 3, h2),
         nn.ReLU(),
         
         # Output layer
@@ -92,6 +92,7 @@ def gen_net_cnn_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
 
         loss_array[epoch] = loss.item()
 
+        print(f"Epoch {epoch + 1}/{epochs} completed. Loss: {loss.item():.10f}")
         epoch_count += 1
 
         # stops neural network if error rate is lower than desired

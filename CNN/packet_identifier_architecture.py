@@ -21,14 +21,14 @@ def model_main():
     numpy_dir = "numpy_files/"
     conv_dir = "datasets_conv/"
 
-    # --- UPDATED: The number of features is now 128 ---
-    features = 128 
+    # --- UPDATED: The number of features is now 196 ---
+    features = 196 
     # --- UPDATED: These dimensions are needed for the 4D array ---
-    packet_height = 8
-    packet_width = 16
+    packet_height = 14
+    packet_width = 14
 
     # Change these for tuning
-    iterations = 601
+    iterations = 100
     alpha = 1e-5
     hidden_nodes = 32
     classes = 4
