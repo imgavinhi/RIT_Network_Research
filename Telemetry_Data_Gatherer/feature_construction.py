@@ -123,7 +123,7 @@ def fields_and_labels(x_output_file, y):
     
     #troubleshooting y
     #print("The following is what Y consists of:", y[:20])
-    print("THIS IS A TEST, IGNORE ME!!!\n","ARP: REQ", arp_request_ctr, "ARP: REP", arp_reply_ctr, "ICMP: REQ", icmp_request_ctr, "ICMP: REP", icmp_reply_ctr, "HTTP", http_ctr, "TLS", tls_ctr, "DNS", dns_ctr, "QUIC", quic_ctr)
+    print("ARP: REQ", arp_request_ctr, "ARP: REP", arp_reply_ctr, "ICMP: REQ", icmp_request_ctr, "ICMP: REP", icmp_reply_ctr, "HTTP", http_ctr, "TLS", tls_ctr, "DNS", dns_ctr, "QUIC", quic_ctr)
     return y
 
 '''

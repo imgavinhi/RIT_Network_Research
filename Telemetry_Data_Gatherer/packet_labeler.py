@@ -8,6 +8,7 @@ utilizes traff ints of 7 (dns) and 8 (quic) - UDP header with other identifiers
 def packet_types(x_line_data, arp_request_ctr, arp_reply_ctr, icmp_request_ctr, icmp_reply_ctr, http_ctr, tls_ctr, dns_ctr, quic_ctr):
     packet = "No Match"
     l2_type = x_line_data[24:28]
+    traffic_class_int = -1
 
     if l2_type == '0806':
         arp_type_code = x_line_data[40:44]

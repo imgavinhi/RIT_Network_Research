@@ -24,8 +24,14 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
     train = data_utils.TensorDataset(x_train, y_labels)
     train_loader = data_utils.DataLoader(train, batch_size=batch_size, shuffle=False)
 
+    # Correcting the input layer size assumption from the original file (d_in should be an integer)
+    if isinstance(d_in, torch.Tensor):
+        input_size = int(d_in.shape[0])
+    else:
+        input_size = int(d_in)
+
     net_model = torch.nn.Sequential(
-            torch.nn.Linear(int(d_in.shape[0]), h1),
+            torch.nn.Linear(input_size, h1),
             torch.nn.ReLU(),
             torch.nn.Linear(h1, h1),
             torch.nn.ReLU(),
@@ -88,15 +94,17 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
 
     for i in range(len(x_file_list)):
         x_test = x_file_list[i]
-        y_test = y_file_list[i]
+        y_test_file = y_file_list[i]
 
         x_test = np.load(x_test)
         x_test = np.transpose(x_test)
         x_test = torch.from_numpy(x_test).float()
 
-        y_test = np.load(y_test)
-        y_test = np.transpose(y_test)
-        y_test = torch.from_numpy(y_test)
+        # Load y_test
+        y_test_loaded = np.load(y_test_file)
+        y_test_loaded = np.transpose(y_test_loaded)
+        y_test = torch.from_numpy(y_test_loaded)
+
         y_test_labels = torch.zeros(x_test.shape[0], classes)
 
         y_test_pred = net_model(x_test)
@@ -115,9 +123,20 @@ def gen_net_mlp_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
 
 def accuracy(predictions, y_test):
     accuracy_count = 0
-    total  = predictions.shape[0]
+    # Use the length of the predictions array to match the loop size, 
+    # which is the most reliable measure when you only pass the predictions.
+    total  = len(predictions)
+    print("total", total)
+    
+    # CRITICAL: MITIGATION FOR ZERO DIVISION ERROR
+    if total == 0:
+        print("\n[WARNING] Cannot calculate accuracy: Test dataset is empty (Total=0).\n")
+        return # Exit the function safely
+
     for i in range(predictions.shape[0]):
-        if int(predictions[i]) == int(y_test[0][i]):
+        # Assuming y_test is a 1D or (1, N) array/tensor of true labels
+        # We stick to your original indexing structure (which uses predictions.shape[0] for iteration)
+        if int(predictions[i]) == int(y_test[0][i]): 
             accuracy_count += 1
 
     print("\nTotal Predictions:", total, "Accuracy Count:", accuracy_count)
@@ -127,4 +146,3 @@ def accuracy(predictions, y_test):
 def optimizer_pick(choice, net_model, alpha):
     optimizer = torch.optim.Adam(net_model.parameters(), lr=alpha)
     return optimizer
-

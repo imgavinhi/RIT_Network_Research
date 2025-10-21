@@ -48,7 +48,7 @@ def model_main():
     iterations = 601
     alpha = 1e-5
     hidden_nodes = 32
-    classes = 4
+    classes = 9
     batch_size = 128
     num_data_files = 4
 
