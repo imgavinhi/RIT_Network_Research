@@ -66,4 +66,3 @@ def packet_parser(file, byte_count):
 
 # Example usage
 # packet_parser("path_to_your_input_file.txt", 200)
-

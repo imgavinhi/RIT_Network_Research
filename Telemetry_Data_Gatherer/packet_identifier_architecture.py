@@ -46,7 +46,7 @@ def model_main():
     #change these for tuning
     features = 84 #packet_parser.py multiplies by 2 to get bytes
     iterations = 601
-    alpha = 1e-5
+    alpha = 1e-3
     hidden_nodes = 32
     classes = 9
     batch_size = 128
@@ -63,6 +63,7 @@ def model_main():
     for i in range(0, num_data_files):
         #standardize capture, parsed, and csv names
         filename = os.path.join("w_dataset"+str(i)+".txt")
+        print("input: ", filename)
         dataset_files.append(filename)
 
         cleaned_file = os.path.join(cleaned_datasets_dir,"w_dataset"+str(i)+"_parsed.txt")
