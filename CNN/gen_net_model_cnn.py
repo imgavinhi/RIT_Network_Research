@@ -34,6 +34,9 @@ def gen_net_cnn_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
     # --- Replaced MLP with CNN Architecture ---
     net_model = torch.nn.Sequential(
         # First convolutional layer: expects a 4D input of (batch, 1, 14, 14)
+
+        #make the problem hard for CNN!
+
         nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1),
         nn.ReLU(),
         nn.MaxPool2d(kernel_size=2),
@@ -52,7 +55,7 @@ def gen_net_cnn_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
         
         # Output layer
         nn.Linear(h2, d_out),
-        nn.Softmax(dim=1)
+        #nn.Softmax(dim=1)
     )
 
     dtype = torch.float

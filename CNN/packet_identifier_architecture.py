@@ -29,7 +29,7 @@ def model_main():
 
     # Change these for tuning
     iterations = 100
-    alpha = 1e-5
+    alpha = 1e-4
     hidden_nodes = 32
     classes = 4
     batch_size = 128
