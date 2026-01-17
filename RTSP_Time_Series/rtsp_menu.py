@@ -35,7 +35,26 @@ def main():
                     break
                 else:
                     print("Error: The file must be a '.txt' file located in the '{capture/}' directory")
+
+            while True:
+                try:
+                    byte_count = input("Please specify the number of bytes you want from the packet: ")
+                    if int(byte_count) > 0:
+                        break
+                    else:
+                        print("Error: Byte Count must be a positive integer.")
+                except ValueError:
+                    print("Error: Please input a valid integer.")
         
+            #have to change this so it is not stored in variables here, instead in a file that you read through to determine values
+            packet_parser(file_location, byte_count)
+            input("Parsing complete. Press Enter to Continue...")
+
+        elif command == "Q":
+            print("Quitting Telemtry Data Gathering Script...")
+            run = False
+        else:
+            print("Please enter a valid input.")
 
 if __name__ == '__main__':
     main()
