@@ -1,62 +1,57 @@
 def packet_choice(predictions):
-    ts_list = [] #for troubleshooting
+    """
+    Analyzes the CNN predictions for RTSP time series.
+    Each prediction represents a sequence (conversation) of 26 packets. 
+    """
+    stream_states = [] 
 
-    packet_class = []
-    packet_type = "No Match"
-    packet_counter = 0
-    prediction_col = 0
-
-    arp_req_counter = 0
-    arp_rep_counter = 0
-    ipv4_counter = 0
-    icmp_req_counter = 0
-    icmp_rep_counter = 0
-    http_counter = 0
-    tls_counter = 0
-    dns_counter = 0
-    quic_counter = 0
-
-    no_match_counter = 0
-
-    prediction_counter_list = []
+    # Counters for the conversation-level classifications 
+    success_counter = 0     # Class 1: 2xx codes
+    client_error_counter = 0 # Class 2: 4xx codes
+    server_error_counter = 0 # Class 3: 5xx codes
+    background_counter = 0   # Class 0: Non-RTSP traffic
+    
+    total_conversations = len(predictions)
 
     for i in predictions:
-        if i == 0:
-            #arp req
-            packet_type = "ARP Request"
-            arp_req_counter += 1
-        elif i == 1:
-            #arp rep
-            packet_type = "ARP Reply"
-            arp_rep_counter += 1
+        if i == 1:
+            state = "SUCCESSFUL STREAMING"
+            success_counter += 1
         elif i == 2:
-            #icmp req
-            packet_type = "ICMP Request"
-            icmp_req_counter += 1
-            ipv4_counter += 1
+            state = "CLIENT ERROR (4xx)"
+            client_error_counter += 1
         elif i == 3:
-            #icmp rep
-            packet_type = "ICMP Reply"
-            icmp_rep_counter += 1
-            ipv4_counter += 1
+            state = "SERVER ERROR (5xx)"
+            server_error_counter += 1
         else:
-            packet_type = "No Match"
-            no_match_counter += 1
+            state = "BACKGROUND/OTHER"
+            background_counter += 1
+        
+        stream_states.append(state)
 
-        ts_list.append(packet_type)
+    # Calculate overall stream health
+    # A single error sequence might indicate a streaming failure between nodes 
+    print("\n" + "="*30)
+    print(" RTSP STREAM ANALYSIS REPORT ")
+    print("="*30)
+    print(f"Total Conversations Analyzed: {total_conversations}")
+    print(f" (Each conversation = 26 packets) ")
+    print("-"*30)
+    print(f"Successful Segments:  {success_counter}")
+    print(f"Client-Side Errors:   {client_error_counter}")
+    print(f"Server-Side Errors:   {server_error_counter}")
+    print(f"Background Traffic:   {background_counter}")
+    print("-"*30)
 
-        packet_counter += 1
-        packet_class = []
-        packet_type = ""
-    
-    print("Total Packets:\t", packet_counter)
-    print("IPv4 Packets:\t", ipv4_counter)
-    print("#-Other:\t", no_match_counter)
-    print("0-ARP Request:\t", arp_req_counter)
-    print("1-ARP Reply:\t", arp_rep_counter)
-    print("2-ICMP Request:\t", icmp_req_counter)
-    print("3-ICMP Reply:\t", icmp_rep_counter)
-    print("HTTP:\t", http_counter)
-    print("TLS:\t", tls_counter)
-    print("DNS:\t", dns_counter)
-    print("QUIC:\t", quic_counter)
+    # Logic to determine final stream status
+    if client_error_counter > 0 or server_error_counter > 0:
+        print("FINAL STATUS: STREAM FAILED")
+        if client_error_counter > 0:
+            print("REASON: Unauthorized (401) or other Client-side error detected.")
+    elif success_counter > 0:
+        print("FINAL STATUS: STREAM SUCCESSFUL")
+    else:
+        print("FINAL STATUS: NO RTSP STREAM DETECTED")
+    print("="*30 + "\n")
+
+    return stream_states

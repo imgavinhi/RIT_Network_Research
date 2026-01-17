@@ -26,33 +26,42 @@ def num_rows(filename):
     return x_rows, y_rows
 
 def numpy_x_y(x_rows, x_cols, x_output_file, y_rows, y_cols, packet_height, packet_width):
-    # Dummy counters
+    """
+    Constructs a 4D NumPy array where each sample is a 12x148 'image' of a packet sequence. [cite: 14, 22]
+    """
+    # Dummy counters for the legacy signature of packet_types
     a, b, c, d, e, f, g, h, i = 0, 0, 0, 0, 0, 0, 0, 0, 0
+    
     total_packets = x_rows
+    # UPDATED: Slicing data into conversations of 12 packets 
     num_samples = total_packets // packet_height
     
+    # X shape: (samples, 1, 12, 148) 
     x = np.zeros((num_samples, 1, packet_height, packet_width), dtype=np.float32)
+    # Y shape: (samples, 1) - One label applied to the entire time series [cite: 11]
     y = np.zeros((num_samples, 1), dtype=np.int32)
 
     with open(x_output_file) as traffic:
         lines = [line.strip() for line in traffic if not re.match(timestamp_pattern, line)]
         
         for i in range(num_samples):
+            # Define the current 12-packet window 
             start_pkt = i * packet_height
             end_pkt = start_pkt + packet_height
             sequence_lines = lines[start_pkt : end_pkt]
             
+            # Labeling priority: if any packet in the sequence is an error, the whole sequence is an error
             highest_priority_label = 0
             
             for time_step, line in enumerate(sequence_lines):
-                # Populate matrix
+                # Populate the 12x148 matrix 
                 for j in range(min(len(line), packet_width)):
                      x[i, 0, time_step, j] = int(line[j], 16)
                 
-                # Scan EVERY packet in the window for a status code
-                _, label_id, a,b,c,d,e,f,g,h,i = packet_types(line, a,b,c,d,e,f,g,h,i)
+                # Scan EVERY packet in this 12-packet conversation for RTSP status codes
+                _, label_id, a, b, c, d, e, f, g, h, i = packet_types(line, a, b, c, d, e, f, g, h, i)
                 
-                # Priority: Errors (2, 3) override Success (1) or Background (0)
+                # Priority: Errors (4xx/5xx) override Success (2xx) or Background
                 if label_id > highest_priority_label:
                     highest_priority_label = label_id
             
@@ -62,7 +71,7 @@ def numpy_x_y(x_rows, x_cols, x_output_file, y_rows, y_cols, packet_height, pack
 
 def mean_normalization(x):
     """
-    Standardizes input data to improve CNN training efficiency. [cite: 23]
+    Standardizes input data for better CNN convergence. [cite: 23]
     """
     x_mean = np.mean(x)
     x_std = np.std(x)
@@ -73,7 +82,7 @@ def mean_normalization(x):
 
 def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_file_list, y_test_file_list, packet_height, packet_width):
     """
-    Main driver to convert raw captures into time-series matrices for training. [cite: 5, 22]
+    Main driver to convert raw captures into time-series matrices. [cite: 5, 22]
     """
     y_cols = 1
     x_cols = features
@@ -91,12 +100,12 @@ def preprocessor_main(features, dataset_file_list, cleaned_file_list, x_test_fil
 
         x_rows, y_rows = num_rows(x_source_file)
 
-        # Call numpy_x_y to build the 26x148 matrices [cite: 28]
+        # Build the 12x148 matrices for the RTSP conversations [cite: 21, 22]
         x, y = numpy_x_y(x_rows, x_cols, x_source_file, y_rows, y_cols, packet_height, packet_width)
 
         x_normalized = mean_normalization(x)
 
-        # Save the finalized time-series datasets [cite: 16]
+        # Save finalized datasets [cite: 16]
         np.save(y_labels_file, y)
         np.save(x_features_file, x_normalized)
-        print(f"Time-series dataset saved: {x_features_file}")
+        print(f"12-packet Time Series dataset saved: {x_features_file}")

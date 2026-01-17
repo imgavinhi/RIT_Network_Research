@@ -14,7 +14,7 @@ def gen_net_cnn_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
     packet_width = 148
     d_out = classes
     
-    flatten_size = 64 * 6 * 37
+    flatten_size = 64 * 3 * 37
     
     print("Model Params:", feature_count, iterations, hidden_nodes, classes, alpha, batch_size)
 

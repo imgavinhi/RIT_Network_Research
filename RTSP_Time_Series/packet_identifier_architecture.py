@@ -26,7 +26,7 @@ def model_main():
     # --- RTSP Time Series Dimensions ---
     # We use 26 packets (time) and 148 bytes (features) per slide findings 
     # Doubling the conversation size from 13 to 26 improved results [cite: 27, 28]
-    packet_height = 26 
+    packet_height = 12 
     packet_width = 148 
     features = packet_height * packet_width
 
