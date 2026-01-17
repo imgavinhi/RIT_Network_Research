@@ -6,7 +6,7 @@ import torch.utils.data as data_utils
 
 from datetime import datetime
 import os.path
-#from predictions import *
+from predictions import *
 
 # defines the main operations for the machine learning neural network
 def gen_net_cnn_main(x_train, y_labels, x_file_list, y_file_list, feature_count, iterations, hidden_nodes, classes, alpha, batch_size):

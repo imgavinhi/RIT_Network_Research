@@ -38,7 +38,7 @@ def model_main():
     # Classes: 0:Background, 1:RTSP Success (2xx), 2:RTSP Client Error (4xx), 3:RTSP Server Error (5xx)
     classes = 4 
     batch_size = 64
-    num_data_files = 1
+    num_data_files = 2
 
     x_files, y_files, dataset_files, cleaned_files = [], [], [], []
 

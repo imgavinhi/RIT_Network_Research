@@ -28,43 +28,44 @@ def num_rows(filename):
 def numpy_x_y(x_rows, x_cols, x_output_file, y_rows, y_cols, packet_height, packet_width):
     """
     Constructs a 4D NumPy array where each sample is a 12x148 'image' of a packet sequence. [cite: 14, 22]
+    A single label is applied to the entire collection of packets in the series. [cite: 11]
     """
-    # Dummy counters for the legacy signature of packet_types
-    a, b, c, d, e, f, g, h, i = 0, 0, 0, 0, 0, 0, 0, 0, 0
-    
     total_packets = x_rows
-    # UPDATED: Slicing data into conversations of 12 packets 
+    # Slicing data into conversations based on the specified height (e.g., 12 packets) [cite: 21]
     num_samples = total_packets // packet_height
     
-    # X shape: (samples, 1, 12, 148) 
+    # X shape: (samples, 1, height, width) [cite: 22]
     x = np.zeros((num_samples, 1, packet_height, packet_width), dtype=np.float32)
-    # Y shape: (samples, 1) - One label applied to the entire time series [cite: 11]
+    # Y shape: (samples, 1) - Label applied to the time series [cite: 11]
     y = np.zeros((num_samples, 1), dtype=np.int32)
 
     with open(x_output_file) as traffic:
+        # Load hex lines, filtering out timestamps [cite: 15]
         lines = [line.strip() for line in traffic if not re.match(timestamp_pattern, line)]
         
         for i in range(num_samples):
-            # Define the current 12-packet window 
+            # Define the current window/conversation [cite: 10]
             start_pkt = i * packet_height
             end_pkt = start_pkt + packet_height
             sequence_lines = lines[start_pkt : end_pkt]
             
-            # Labeling priority: if any packet in the sequence is an error, the whole sequence is an error
+            # Use priority logic: Errors (4xx/5xx) override Success (2xx) or Background
             highest_priority_label = 0
             
             for time_step, line in enumerate(sequence_lines):
-                # Populate the 12x148 matrix 
+                # Populate the matrix row by row [cite: 22]
                 for j in range(min(len(line), packet_width)):
                      x[i, 0, time_step, j] = int(line[j], 16)
                 
-                # Scan EVERY packet in this 12-packet conversation for RTSP status codes
-                _, label_id, a, b, c, d, e, f, g, h, i = packet_types(line, a, b, c, d, e, f, g, h, i)
+                # UPDATED: Unpack only 2 values to match your RTSP status code labeler
+                # This identifies if the conversation is successful or failing
+                packet_name, label_id = packet_types(line)
                 
-                # Priority: Errors (4xx/5xx) override Success (2xx) or Background
+                # Check if this packet contains a higher-priority status code
                 if label_id > highest_priority_label:
                     highest_priority_label = label_id
             
+            # Apply the definitive label to the entire 12-packet conversation [cite: 11, 14]
             y[i, 0] = highest_priority_label
             
     return x, y

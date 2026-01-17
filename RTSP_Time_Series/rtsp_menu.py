@@ -21,7 +21,7 @@ def main():
 
         print("********RTSP Time Series********\n")
         print("Please select one of the following options:")
-        print("\tP: Parse Capture Packet\n\tQ: Quit Program")
+        print("\tP: Parse Capture Packet\n\tM: Machine Learning Neural Network\n\tQ: Quit Program")
         command = input("\nPlease select a choice: ")
         command = command.upper()
         if command == "P":
@@ -46,9 +46,12 @@ def main():
                 except ValueError:
                     print("Error: Please input a valid integer.")
         
-            #have to change this so it is not stored in variables here, instead in a file that you read through to determine values
             packet_parser(file_location, byte_count)
             input("Parsing complete. Press Enter to Continue...")
+
+        elif command == "M":
+            model_main()
+            input("\nPress Enter to Continue...")
 
         elif command == "Q":
             print("Quitting Telemtry Data Gathering Script...")
