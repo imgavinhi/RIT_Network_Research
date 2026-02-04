@@ -31,12 +31,12 @@ def model_main():
     features = packet_height * packet_width
 
     # --- Machine Learning Hyperparameters ---
-    iterations = 100
-    alpha = 1e-4
+    iterations = 2000
+    alpha = 1e-5
     hidden_nodes = 32
     
     # Classes: 0:Background, 1:RTSP Success (2xx), 2:RTSP Client Error (4xx), 3:RTSP Server Error (5xx)
-    classes = 4 
+    classes = 5
     batch_size = 64
     num_data_files = 2
 

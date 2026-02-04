@@ -110,6 +110,13 @@ def gen_net_cnn_main(x_train, y_labels, x_file_list, y_file_list, feature_count,
             y_test_pred = net_model(x_test_tensor)
             predicted_classes = torch.argmax(y_test_pred, dim=1)
 
+
+        print("\n--- MODEL VS LABELER COMPARISON ---")
+        for idx in range(len(predicted_classes)):
+            p = predicted_classes[idx].item()
+            l = y_test_labels[idx].item()
+            print(f"Window {idx} | CNN Guessed: {p} | Labeler (Ground Truth): {l}")
+
         # Pass results and IP data to predictions.py for the report
         predicted_numpy = predicted_classes.cpu().numpy()
         packet_choice(predicted_numpy, host_data=host_data)
